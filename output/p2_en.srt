@@ -1,0 +1,406 @@
+1
+00:00:00,000 --> 00:00:02,600
+I mean, some Soyuz, rides have been as little as
+like, six hours, right?
+
+2
+00:00:02,600 --> 00:00:03,460
+Relatively easy.
+
+3
+00:00:03,460 --> 00:00:06,070
+Going to space is only rocket science.
+
+4
+00:00:06,070 --> 00:00:06,650
+Don't want to trivialize.
+
+5
+00:00:07,340 --> 00:00:08,980
+It's still, and even that's the—
+
+6
+00:00:08,980 --> 00:00:10,420
+you even have to admonish myself—
+
+7
+00:00:10,420 --> 00:00:12,390
+it's still not easy to go to space.
+
+8
+00:00:12,390 --> 00:00:13,430
+It's still, I mean,
+
+9
+00:00:13,430 --> 00:00:15,900
+it is rocket—rocket science—it's literal rocket
+science,
+
+10
+00:00:15,980 --> 00:00:17,270
+which is hugely complex,
+
+11
+00:00:17,270 --> 00:00:19,330
+and there's always inherent
+
+12
+00:00:19,330 --> 00:00:19,800
+risk,
+
+13
+00:00:19,800 --> 00:00:20,840
+and all these other things.
+
+14
+00:00:20,840 --> 00:00:23,300
+But when you start comparing it to,
+
+15
+00:00:23,300 --> 00:00:24,910
+you know, going to Mars,
+
+16
+00:00:24,910 --> 00:00:26,510
+or, you know,
+
+17
+00:00:26,510 --> 00:00:28,990
+our far-flung aspirations of spreading,
+
+18
+00:00:28,990 --> 00:00:31,070
+throughout the the solar system,
+
+19
+00:00:31,070 --> 00:00:32,270
+and the galaxy and everything,
+
+20
+00:00:32,910 --> 00:00:34,350
+when you compare it to that,
+
+21
+00:00:34,350 --> 00:00:35,470
+it's, you know,
+
+22
+00:00:35,710 --> 00:00:37,420
+doing hand quotes easy,
+
+23
+00:00:37,420 --> 00:00:40,000
+but it's still a monumental undertaking.
+
+24
+00:00:40,690 --> 00:00:42,050
+Yeah, and that's why.
+
+25
+00:00:42,050 --> 00:00:43,980
+So we're doing that, just like you said.
+
+26
+00:00:43,980 --> 00:00:45,320
+In the future,
+
+27
+00:00:45,630 --> 00:00:46,700
+we want to go farther, right?
+
+28
+00:00:46,700 --> 00:00:47,540
+So we want to go to Mars.
+
+29
+00:00:47,540 --> 00:00:49,300
+We want to really just expand
+
+30
+00:00:49,300 --> 00:00:50,750
+our, presence in the solar system.
+
+31
+00:00:50,750 --> 00:00:54,290
+So, the International Space Station is a great,
+
+32
+00:00:54,290 --> 00:00:55,410
+way to practice that.
+
+33
+00:00:55,570 --> 00:00:56,150
+It's a good—like,
+
+34
+00:00:56,150 --> 00:00:58,070
+you have a good understanding of what,
+
+35
+00:00:58,070 --> 00:00:59,830
+it takes to live in space,
+
+36
+00:00:59,910 --> 00:01:00,880
+to operate in space.
+
+37
+00:01:00,950 --> 00:01:02,260
+You could do a ton of science,
+
+38
+00:01:02,260 --> 00:01:03,850
+and learn how things interact.
+
+39
+00:01:04,370 --> 00:01:06,370
+And then, if you learn how things interact,
+
+40
+00:01:06,370 --> 00:01:07,950
+you can design,
+
+41
+00:01:07,950 --> 00:01:09,710
+better systems to make them work better.
+
+42
+00:01:09,710 --> 00:01:10,780
+I think one of the ones,
+
+43
+00:01:10,780 --> 00:01:12,440
+I think capillary action,
+
+44
+00:01:12,440 --> 00:01:14,210
+I think, was a was a great one.
+
+45
+00:01:14,450 --> 00:01:16,060
+Like, the way that fluids move in,
+
+46
+00:01:16,290 --> 00:01:17,890
+in space is kind of cool,
+
+47
+00:01:17,890 --> 00:01:18,650
+because they—
+
+48
+00:01:18,650 --> 00:01:20,260
+It's sort of like create a ball,
+
+49
+00:01:20,260 --> 00:01:21,380
+and there's no down.
+
+50
+00:01:21,380 --> 00:01:23,390
+So if you're trying to design,
+
+51
+00:01:23,390 --> 00:01:24,770
+like, a system that,
+
+52
+00:01:24,770 --> 00:01:26,850
+like, a rocket system,
+
+53
+00:01:26,850 --> 00:01:28,060
+in order to propel fuel,
+
+54
+00:01:28,060 --> 00:01:29,890
+you need to—the fuel isn't
+
+55
+00:01:29,890 --> 00:01:31,170
+going to go down, right?
+
+56
+00:01:31,170 --> 00:01:33,120
+It, kind of needs to have that sort of capillary,
+
+57
+00:01:33,120 --> 00:01:35,420
+action and a path to get there.
+
+58
+00:01:35,420 --> 00:01:37,890
+Like, little—those little tiny things are things,
+
+59
+00:01:37,890 --> 00:01:41,190
+that make the huge difference in being, able to
+kind of explore the solar system.
+
+60
+00:01:41,420 --> 00:01:42,730
+Well, it all comes to down to—
+
+61
+00:01:43,110 --> 00:01:44,910
+Gravity, and that's kind of the ultimate,
+
+62
+00:01:44,910 --> 00:01:46,390
+differentiator between,
+
+63
+00:01:46,390 --> 00:01:47,850
+why everything we do in outer,
+
+64
+00:01:47,850 --> 00:01:49,610
+space is different from the way,
+
+65
+00:01:49,610 --> 00:01:50,890
+we do it on Earth.
+
+66
+00:01:50,890 --> 00:01:52,440
+Totally, some of the stuff you touch on
+
+67
+00:01:52,440 --> 00:01:54,490
+is—is very apt.
+
+68
+00:01:54,490 --> 00:01:57,380
+I mean, just moving fluids where—
+
+69
+00:01:58,890 --> 00:01:59,780
+You know, here on Earth,
+
+70
+00:01:59,780 --> 00:02:01,180
+we almost, take it for granted that everything,
+
+71
+00:02:01,180 --> 00:02:02,300
+settles towards the bottom.
+
+72
+00:02:02,300 --> 00:02:03,950
+So plumbing systems and everything—
+
+73
+00:02:03,950 --> 00:02:05,730
+you can use that to your advantage.
+
+74
+00:02:05,730 --> 00:02:07,180
+In space, you don't have that,
+
+75
+00:02:07,410 --> 00:02:09,050
+and that affects everything—from
+
+76
+00:02:09,050 --> 00:02:10,670
+moving rocket fuel to—
+
+77
+00:02:11,530 --> 00:02:12,730
+You know, I'm an astronaut,
+
+78
+00:02:12,730 --> 00:02:14,210
+and I need to get a drink of water.
+
+79
+00:02:14,210 --> 00:02:17,300
+Well, that system has to be specifically,
+
+80
+00:02:17,300 --> 00:02:19,920
+designed to work in the absence of gravity.
+
+81
+00:02:20,470 --> 00:02:21,690
+And we've had a lot of practice,
+
+82
+00:02:22,470 --> 00:02:24,270
+you know, since we've been flying in space.
+
+83
+00:02:24,270 --> 00:02:26,900
+Space, since since the sixties,
+
+84
+00:02:26,900 --> 00:02:29,470
+but the station is really the first,
+
+85
+00:02:29,470 --> 00:02:30,670
+place you've had.
+
+86
+00:02:31,660 --> 00:02:32,300
+On this scale,
+
+87
+00:02:32,300 --> 00:02:33,030
+there have been
+
+88
+00:02:33,030 --> 00:02:34,390
+space stations in the past,
+
+89
+00:02:34,470 --> 00:02:35,760
+both from the U.S. and Russia.
+
+90
+00:02:36,910 --> 00:02:37,870
+But the space,
+
+91
+00:02:37,870 --> 00:02:40,990
+station is really the the modern,
+
+92
+00:02:40,990 --> 00:02:45,300
+cutting-edge test bed for just doing and,
+
+93
+00:02:45,300 --> 00:02:46,660
+learning everything about
+
+94
+00:02:46,660 --> 00:02:47,920
+living in space.
+
+95
+00:02:47,920 --> 00:02:49,350
+And so you have
+
+96
+00:02:49,350 --> 00:02:51,110
+all of these, different technologies,
+
+97
+00:02:51,110 --> 00:02:53,420
+that—like I said earlier—everything,
+
+98
+00:02:53,420 --> 00:02:55,900
+you do in space is different from,
+
+99
+00:02:55,900 --> 00:02:57,620
+the way that you do it on planet Earth,
+
+100
+00:02:57,620 --> 00:02:59,200
+where, you know,
+
+101
+00:02:59,200 --> 00:02:59,370
+you have.

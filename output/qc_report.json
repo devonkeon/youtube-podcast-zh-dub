@@ -1,0 +1,61 @@
+{
+ "project": "p2",
+ "date": "2026-08-02",
+ "source": "/Users/lx/Downloads/hwhap_ep1_2speaker_clip.mp4",
+ "output": "output/p2_dubbed.mp4",
+ "duration": {
+  "video": 180.033008,
+  "dub_wav": 180.033,
+  "muxed": 180.033008,
+  "drift_sec": 0.0,
+  "note": "每个 unit 锚定绝对 start，时长结构性零漂移；局部溢出由 gap_spill=0.6 吸收+atempo 强制贴合"
+ },
+ "streams": [
+  "h264 video",
+  "aac chi(中文配音,default)",
+  "aac eng(原声)",
+  "mov_text chi",
+  "mov_text eng"
+ ],
+ "speakers": {
+  "s1": {
+   "name": "Dan Huot",
+   "voice": "zh-CN-YunjianNeural"
+  },
+  "s2": {
+   "name": "Gary Jordan",
+   "voice": "zh-CN-YunxiNeural"
+  },
+  "gate": "M3 过门（0/101 cue 分歧，四方证据一致）"
+ },
+ "tts": {
+  "engine": "edge-tts 7.2.8",
+  "rate": "+15%",
+  "conc": 6,
+  "silence_trim": "两端 -45dB silenceremove（实测每条省约 1.15s 填充静音）",
+  "units": 66,
+  "merged_pathological": 2,
+  "stretch_hist": {
+   "1.0 (no stretch)": 51,
+   "1.0-1.25": 11,
+   "1.25-1.5": 3,
+   ">1.5": 1,
+   "max": 1.675
+  }
+ },
+ "volume_check": {
+  "0-6s": -23.2,
+  "8-40s": -24.8,
+  "41-102s": -24.7,
+  "104-179s": -24.4,
+  "note": "四个轮次段均有稳定电平，无死区"
+ },
+ "samples": [
+  "output/samples/p2_turn1-2.mp4 (0-12s, s2→s1 @7.34)",
+  "output/samples/p2_turn2-3.mp4 (38-50s, s1→s2 @40.69)",
+  "output/samples/p2_cross-speaker.mp4 (99-110s, 接力句 @103.11)"
+ ],
+ "pending_human": [
+  "人耳听 3 段样片：音色是否分清两人、接力句是否自然、>1.5x 的 1 个 unit 是否可接受"
+ ]
+}
