@@ -556,3 +556,67 @@ align 其余 5 次（c0005~c0009）做法一致：**契约标出 `"problems"` �
 （注：本次最终 `task status` 输出里**没有** `concurrencyHint` 字段、也没有 `warnings` 字段——这两个字段只出现在任务较早期的中间态响应里，如实按最后一次真实调用的返回内容记录，不补全、不脑补。）
 
 命令：`baocut-cli --json task status t-msagprsx` → `"status" : "done"` ✅ 达成 Completion standard。
+
+## M3 · 说话人识别验证（已执行 ✅ 2026-08-02，Kimi 接手完成）
+
+M3 首轮（见 STATE.md 顶部）剩下三件事，本节全部做完。素材 p2（NASA HWHAP Ep.1 第 5–8 分钟，180s 双人访谈）。
+
+### 1. 交叉验证：reidentify 双提案 + diff（真实输出）
+
+```
+$ baocut-cli speakers reidentify p2 --count 2,3 --review
+note: count 3: only 2 distinct voices found
+2 proposals from one diarization:
+  sp-msaiqodc: 2 voices (s1 · s2) · 0 cue changes · 0 ambiguous
+  sp-msaiqode: 2 voices (s1 · s2) · 0 cue changes · 0 ambiguous
+
+$ baocut-cli speakers proposals p2 sp-msaiqodc sp-msaiqode
+the two proposals label every cue identically
+```
+
+- **分歧统计：0 / 101 cue（0%）**，远低于 5% 过门线；count=3 时模型也只找到 2 个声纹。
+- `speakers view p2 --rerun` 双条带诊断图（A=当前归属，B=全新声纹聚类）：无红色分歧标、无橙色模糊标，与上面 0 分歧一致。PNG 存 `docs/assets/p2_spk.png`。
+
+### 2. 视觉确认：原方案在此素材上失效，改用字幕锚点（重要修正）
+
+M3 预案第 6 步假设"视频播客抓帧能直接看出谁在说"。**该假设在本素材上不成立**：
+
+- `frames p2 --at 7.34 / 40.69 / 103.11`（三个轮次边界）+ 全片 12 帧总览（`docs/assets/p2_overview.png`）实测：
+  **0–45s 及全片访谈段均为固定左右分屏**（两人同框，画面不随说话人切换），103s 附近是 ISS B-roll 动画。
+  静帧无法从唇动分辨说话人，"看 4 张画面帧就完事"不成立。
+- **替代锚点（实测有效）**：00:22 帧右半屏出现下三分之一字幕条
+  **"Dan Huot — NASA Public Affairs Spokesman, International Space Station"**，落在 s1 的轮次内（7.34–40.69s）。
+  下三分之一字幕条在人说话时打出 → **s1 = Dan Huot（光头蓄须，NASA 发言人/嘉宾）**，s2 = Gary Jordan（深色头发，主持人）。
+- 已执行 `speakers rename p2 s1="Dan Huot" s2="Gary Jordan"` 生效（`show --json` 确认）。
+  ⚠️ CLI 怪癖：`speakers rename p2 s1 "Dan Huot"` 位置参数形式**返回 rc=0 但不生效也不报错**，必须用 `s1=Name` 批量形式。
+
+### 3. 第三方独立证据：ASR 阶段说话人切换标记（⏹）逐边界对齐
+
+转录/分段阶段产出的 polish payload（`payloads/c0001.txt`）里有 3 处 ⏹ 说话人切换标记，
+与声纹聚类的 3 个轮次边界**逐一对应**（原文真实截取）：
+
+| ⏹ 位置（payload 原文） | 对应边界 | 轮次切换 |
+|---|---|---|
+| `Don't want to trivialize. ⏸ ⏹ It's still, …` | 7.34s | s2→s1 |
+| `…a monumental undertaking. ⏸ ⏹ Yeah, and that's why.` | 40.69s | s1→s2 |
+| `Well, it all comes to down to ⏹ gravity, …` | 103.11s | s2→s1 |
+
+⏹ 标记与声纹聚类是两条独立链路（文本分段阶段 vs 声纹重识别），加上基线识别，**三方结果完全一致**。
+
+### 4. 跨说话人句子：group 粒度可以表达切分（已验证）
+
+`"Well, it all comes to down to— ⏹ Gravity, …"` 在 `subtitle list` 里就是两个 group：
+
+```
+g8.42        s2  101.42-102.73  "Well, it all comes to down to—"  / zh「这一切啊，说到底还是…」(11字)
+wmsah7v2h-52 s1  103.11-106.39  "Gravity, and that's kind of the ultimate, differentiator between," / zh「重力，说到底就是那个终极分水岭，」(16字)
+```
+
+**结论：配音时按 group 分配音色即可正确切开两人接力句，不需要词级二次切分。** 中文翻译也已在 group 边界断开。
+
+### 5. M3 最终判定
+
+- 分歧占比 **0% ≤ 5%**，三个边界全部有 ⏹ 独立证据 + 双提案交叉验证 + 人名字幕锚点 → **过门，允许多音色**。
+- 对 M4 的约束：音色表 `s1=Dan Huot（嘉宾，男中音）/ s2=Gary Jordan（主持人，男中音）`；接力句按 group 切音色。
+- 流程修正（写回 STATE.md 的 M3 步骤）：**frames 视觉确认只在"镜头随说话人切换"的素材上有效**；
+  分屏/双机位同框素材改用「人名字幕锚点 + ⏹ 标记对齐 + 双提案 diff」组合确认。
