@@ -1,3 +1,10 @@
+## 文档导航
+
+- **新人接手**：`ONBOARDING.md`（项目全解 + 执行细节 + 坑的全集）
+- **节点账本**：`STATE.md`（当前进度、下一条命令）
+- **Claude Code 交接**：`HANDOFF_CLAUDE.md`
+- **实测证据库**：`docs/BAOCUT_NOTES.md` · **提速调研**：`docs/SPEED_RESEARCH.md`
+
 # youtube-podcast-zh-dub
 
 把 YouTube 英文播客变成**中文口播版**：默认播放即中文配音，可一键切回英文原声，附中英双语字幕。
