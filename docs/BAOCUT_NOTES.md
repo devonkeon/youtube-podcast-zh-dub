@@ -711,3 +711,42 @@ vk-keymasks         = gemini:Personal（有 key）+ custom-c4d35ecb:Personal（�
 - `output/p2_dubbed.mp4`：h264 + aac 中文配音（默认轨）+ aac 英文原声 + mov_text 中/英双字幕，180.033s。
 - `output/qc_report.json`：时长/流/音色表/变速直方图/四段音量检查（-23~-25dB，无死区）。
 - 3 段人耳样片在 `output/samples/`：轮次切换 ×2 + 跨说话人接力句 ×1。**待用户醒后人耳验收。**
+
+## M7 · 端到端 20 分钟真实播客（已执行 ✅ 2026-08-02，Kimi）—— 全链路自动化跑通
+
+素材：HWHAP 直播集（`8A-6NoJbsFg` 0:00–20:00，公有领域，**3 人**：主持 Gary Jordan + 嘉宾 Ann Romer + PA Jennifer Hernandez）。
+产物：`output/p5_dubbed.mp4`（1200.015s，三音色中配默认轨 + 原声 + 中英字幕）+ `output/qc_report_p5.json` + 3 段样片。
+
+### 耗时表（真实数据）
+
+| 阶段 | 耗时 | 说明 |
+|---|---|---|
+| 下载 | 10m16s | yt-dlp 被限速 130KB/s，非链路问题 |
+| 转录+说话人 | 306s | qwen3-asr-0.6b 本地，0.26× 实时 |
+| LLM 阶段 | **约 7 分钟** | **2 个 llm_worker 并行**，79 calls（align 62 个），$0.059 |
+| TTS 配音 | 约 6 分钟 | 450 单元，edge-tts conc 6，rate+15% |
+| 封装+QC | <1 分钟 | |
+| **合计（不含下载）** | **约 25 分钟 / 20 分钟素材** | ≈1.25× 实时；按并行度推算 **3 小时播客 ≈ 2 小时内** |
+
+对照：人工 agent 循环做 LLM 阶段，同比例要 4+ 小时。**worker-bot 是整条链路的提速关键。**
+
+### M7 说话人确认门第一次拦到真分歧（3 人场景）
+
+- 基线识别 3 人（s1/s3/s4）。`reidentify --count 3,4 --review`：
+  - count=3 提案：把主持人整个并入嘉宾（277 cues，36%）——**被内容证据否决**：
+    开场白是主持人点名"Starting with Ann Romer. Ann, welcome."，随后 Ann 作答"Thank you, glad to be here."，
+    自问自答不成立。教训：**3+ 人场景声纹欠拟合（count 给少了）会把两个人并掉，人数宁多勿少，且必须过内容结构校验**。
+  - count=4 提案：与基线仅 1/764 cue 差异 + 9 ambiguous（1.2% < 5% 门限）→ **过门，保留三音色**。
+- `speakers propose-names` 给出 "guessing now" 这种噪声（heuristic 提示会出错，人名必须内容核实）。
+- 人名按内容证据标注：s3=Gary Jordan（主持）/ s1=Ann Romer（嘉宾）/ s4=Jennifer Hernandez（PA）。
+
+### 踩到的坑（全部已修或已记录）
+
+1. **`subtitle list` 默认 `--limit 200`，长项目静默截断**（p5：returned 200 / total 474）——
+   第一版 p5 配音只配了前 8 分钟，QC 音量检查在 600s 处发现 -91dB 死区才暴露。
+   `build_dub.py` 已改为显式 `--limit 100000` + returned≠total 直接报错。**QC 覆盖检查救了这次发布。**
+2. align lint 拒绝 112 次（对 79 次通过）：flash 关推理后对"译文 ≤20 字"硬约束一次通过率低，
+   全靠 problems 反馈重试收敛。能跑通但浪费，后续 align 可换更强模型。
+3. p5 的 >1.5x 变速单元 29 个（6.4%），比 p2（1 个）差：直播问答 cps=5.64、间隙紧。
+   方向：超长 unit 走 LLM 重译缩短（SPEED_RESEARCH 第 3 节）。
+4. cps 实测第三次：p1=5.44 / p2=4.92 / **p5=5.64（直播问答偏快）**。5.2 仍是好中值，但直播类按 5.6 估。

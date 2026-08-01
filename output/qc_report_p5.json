@@ -1,0 +1,62 @@
+{
+ "project": "p5",
+ "date": "2026-08-02",
+ "milestone": "M7 端到端 20 分钟",
+ "source": "/Users/lx/Downloads/hwhap_long_20min.mp4 (HWHAP live episode, 公有领域, 3人)",
+ "output": "output/p5_dubbed.mp4",
+ "pipeline_timing": {
+  "download": "10m16s (yt-dlp 130KB/s 限速)",
+  "transcribe+speakers": "306s (qwen3-asr-0.6b 本地, 0.26x 实时)",
+  "llm_stages": "约7分钟 (2 个 llm_worker 并行, 79 calls: polish4/repunct4/analysis4/brief1/translate4/align62)",
+  "llm_cost": "约 $0.059 (in 309k tok / out 21k tok, deepseek-v4-flash)",
+  "tts": "约6分钟 (450 单元, conc 6, edge-tts rate+15%)",
+  "total": "约25分钟 / 20分钟素材 (不含下载)"
+ },
+ "speaker_gate": {
+  "speakers": {
+   "s1": "Ann Romer (嘉宾, 700s)",
+   "s3": "Gary Jordan (主持, 349s)",
+   "s4": "Jennifer Hernandez (PA, 19s)"
+  },
+  "verdict": "过门（保留多音色）",
+  "evidence": "count=4 提案与基线仅 1/764 cue 差异 + 9 ambiguous (1.2% < 5%)；count=3 提案要把主持人并入嘉宾 (277 cues)，被内容证据否决（开场白点名介绍 Ann Romer 后她作答，自问自答不成立）",
+  "note": "这是确认门第一次拦到真分歧——3 人场景声纹空间拥挤，count=3 欠拟合；结论：人数宁多勿少 + 内容结构校验"
+ },
+ "dub": {
+  "units": 450,
+  "merged_pathological": 24,
+  "stretch_hist": {
+   "1.0 (no stretch)": 310,
+   "1.0-1.25": 74,
+   "1.25-1.5": 37,
+   ">1.5": 29,
+   "max": 3.411
+  },
+  "note": ">1.5x 占 6.4%（29 个），比 p2 差：直播问答语速快 cps=5.64、间隙紧。改进方向：LLM 重译缩短（见 SPEED_RESEARCH #3）"
+ },
+ "volume_check": {
+  "30-57s": -24.4,
+  "58-59s": -21.2,
+  "59-104s": -24.9,
+  "126-138s": -23.0,
+  "600-660s": -21.9,
+  "900-960s": -19.5,
+  "1140-1199s": -21.9,
+  "note": "全片覆盖无死区（曾发现并修复 subtitle list 默认 limit=200 截断导致的后半无配音事故）"
+ },
+ "samples": [
+  "output/samples/p5_host-guest-switch.mp4",
+  "output/samples/p5_jennifer-question.mp4",
+  "output/samples/p5_late-segment.mp4"
+ ],
+ "known_issues": [
+  "align lint 拒绝 112/79（retry 风暴）：deepseek-v4-flash 关推理后对 align 的 20 字硬约束一次通过率偏低，靠反馈重试收敛；后续可给 align 换更强模型或在 prompt 强调约束",
+  "audit: 若按字幕显示标准有 39 个组超 9 CPS 显示限速（配音场景不适用该限制，仅供参考）",
+  "29 个 unit 变速 >1.5x 需人耳确认可接受度"
+ ],
+ "pending_human": [
+  "人耳验收 3 段样片（含 600s 后段验证全片覆盖）",
+  "3人音色区分度",
+  "29 个 >1.5x unit 听感"
+ ]
+}

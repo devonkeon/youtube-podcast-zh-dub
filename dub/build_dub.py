@@ -30,10 +30,16 @@ import edge_tts  # noqa: E402
 
 
 def bc_groups(pid, lang):
-    p = subprocess.run([BC, "--json", "subtitle", "list", pid, "--lang", lang],
+    # NOTE: `subtitle list` defaults to --limit 200 — long projects silently
+    # truncate (p5: returned 200 of total 474). Always pass an explicit limit.
+    p = subprocess.run([BC, "--json", "subtitle", "list", pid, "--lang", lang,
+                        "--limit", "100000"],
                        capture_output=True, text=True, check=True)
     d = json.loads(p.stdout)
-    return [s for s in d["subtitles"] if not s.get("hidden")]
+    subs = [s for s in d["subtitles"] if not s.get("hidden")]
+    if d.get("returned") != d.get("total"):
+        raise RuntimeError(f"subtitle list truncated: {d.get('returned')}/{d.get('total')}")
+    return subs
 
 
 def merge_pathological(groups, min_dur=0.7, max_gap=0.2):

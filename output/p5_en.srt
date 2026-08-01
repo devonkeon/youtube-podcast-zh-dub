@@ -1,0 +1,3093 @@
+1
+00:00:30,540 --> 00:00:30,700
+Welcome
+
+2
+00:00:30,780 --> 00:00:31,830
+to a live episode of
+
+3
+00:00:31,830 --> 00:00:33,190
+Houston, We Have a Podcast.
+
+4
+00:00:33,190 --> 00:00:34,810
+We are getting in front of the cameras,
+
+5
+00:00:34,810 --> 00:00:36,570
+today because if you haven't heard,
+
+6
+00:00:36,960 --> 00:00:38,000
+NASA is accepting, applications
+
+7
+00:00:38,620 --> 00:00:39,740
+to become an astronaut,
+
+8
+00:00:39,740 --> 00:00:41,110
+all throughout the month of March.
+
+9
+00:00:41,490 --> 00:00:43,320
+So, we have got a lot of questions,
+
+10
+00:00:43,860 --> 00:00:44,820
+and we have great guests,
+
+11
+00:00:44,820 --> 00:00:45,960
+here that are going to be answering,
+
+12
+00:00:45,960 --> 00:00:46,770
+them for you live.
+
+13
+00:00:46,770 --> 00:00:47,800
+Make sure you follow,
+
+14
+00:00:47,800 --> 00:00:48,120
+along
+
+15
+00:00:48,120 --> 00:00:48,840
+with us on Facebook
+
+16
+00:00:48,840 --> 00:00:50,350
+and Twitter, and wherever else.
+
+17
+00:00:50,500 --> 00:00:50,730
+We got—
+
+18
+00:00:50,730 --> 00:00:51,730
+we will be getting to your
+
+19
+00:00:51,730 --> 00:00:53,000
+questions, here in a second,
+
+20
+00:00:53,000 --> 00:00:54,440
+but I like to first introduce our,
+
+21
+00:00:54,440 --> 00:00:55,070
+very special guest.
+
+22
+00:00:55,070 --> 00:00:56,960
+Starting with Ann Romer.
+
+23
+00:00:56,960 --> 00:00:57,750
+Ann, welcome.
+
+24
+00:00:58,140 --> 00:00:59,280
+Thank you, glad to be here.
+
+25
+00:00:59,580 --> 00:01:00,800
+You are the manager of the
+
+26
+00:01:00,800 --> 00:01:01,990
+astronaut, selection office.
+
+27
+00:01:02,380 --> 00:01:02,730
+You know the ins,
+
+28
+00:01:02,730 --> 00:01:04,330
+and outs of the application process,
+
+29
+00:01:04,330 --> 00:01:06,400
+and you're there from the inside.
+
+30
+00:01:06,400 --> 00:01:07,830
+In fact, you came on the podcast—
+
+31
+00:01:07,830 --> 00:01:08,440
+you actually help.
+
+32
+00:01:08,440 --> 00:01:09,300
+Let's kick
+
+33
+00:01:09,300 --> 00:01:10,840
+it off with episode two to talk,
+
+34
+00:01:10,840 --> 00:01:13,720
+about when we brought on the astronaut,
+twenty seventeen class.
+
+35
+00:01:13,800 --> 00:01:15,390
+I remember that very well.
+
+36
+00:01:15,700 --> 00:01:16,510
+Well, welcome back.
+
+37
+00:01:17,280 --> 00:01:17,450
+Thank you.
+
+38
+00:01:17,450 --> 00:01:18,690
+I'm curious to hear the insides of this.
+
+39
+00:01:18,770 --> 00:01:18,860
+Thanks.
+
+40
+00:01:19,160 --> 00:01:20,140
+We also have Kayla Baron.
+
+41
+00:01:20,300 --> 00:01:21,180
+Hey Kayla, hi.
+
+42
+00:01:21,910 --> 00:01:22,710
+Carey, Caleb,
+
+43
+00:01:22,710 --> 00:01:23,190
+Caleb—you're
+
+44
+00:01:23,190 --> 00:01:26,070
+among the turtles—the astronaut class of
+
+45
+00:01:26,070 --> 00:01:26,340
+twenty seventeen—
+
+46
+00:01:26,340 --> 00:01:29,190
+you went through this application process,
+
+47
+00:01:29,190 --> 00:01:30,870
+and competed against eighteen thousand
+
+48
+00:01:30,870 --> 00:01:31,510
+other people.
+
+49
+00:01:32,280 --> 00:01:33,150
+And you're here,
+
+50
+00:01:33,150 --> 00:01:34,450
+and you're part of the turtles.
+
+51
+00:01:34,910 --> 00:01:35,890
+You have a bachelor's in
+
+52
+00:01:35,890 --> 00:01:37,170
+systems, engineering with a,
+
+53
+00:01:37,400 --> 00:01:38,120
+from the U.S.
+
+54
+00:01:38,200 --> 00:01:39,890
+Naval Academy and a master's in nuclear,
+
+55
+00:01:39,890 --> 00:01:41,240
+engineering from Cambridge.
+
+56
+00:01:41,240 --> 00:01:42,840
+You are a marine warfare officer,
+
+57
+00:01:43,300 --> 00:01:44,760
+and you just graduated two months ago.
+
+58
+00:01:44,760 --> 00:01:44,930
+Congratulations!
+
+59
+00:01:44,930 --> 00:01:45,880
+Thank you.
+
+60
+00:01:46,030 --> 00:01:47,790
+How's how's life been after graduation?
+
+61
+00:01:47,790 --> 00:01:48,260
+It's
+
+62
+00:01:48,260 --> 00:01:49,050
+been awesome.
+
+63
+00:01:49,050 --> 00:01:51,050
+We've been really busy doing lots of
+
+64
+00:01:51,360 --> 00:01:52,880
+different jobs now that we've graduated,
+
+65
+00:01:53,420 --> 00:01:54,630
+still in training as well,
+
+66
+00:01:54,630 --> 00:01:57,830
+but it's been a lot of fun to contribute to the
+office in a different way.
+
+67
+00:01:57,830 --> 00:01:57,990
+Wonderful.
+
+68
+00:01:59,070 --> 00:01:59,510
+Okay, well, I have a
+
+69
+00:01:59,590 --> 00:02:00,240
+lot of questions,
+
+70
+00:02:00,700 --> 00:02:02,170
+but we also are going to be taking,
+
+71
+00:02:02,170 --> 00:02:04,410
+questions live from you, from the viewer,
+
+72
+00:02:04,410 --> 00:02:05,930
+and we have Jennifer Hernandez
+
+73
+00:02:06,630 --> 00:02:07,190
+standing by.
+
+74
+00:02:07,190 --> 00:02:08,470
+Hey Jennifer, hey there.
+
+75
+00:02:08,470 --> 00:02:10,070
+Gary, Hey Kayla, hey Ann.
+
+76
+00:02:10,470 --> 00:02:11,110
+Jennifer works with
+
+77
+00:02:11,110 --> 00:02:11,990
+us in our public,
+
+78
+00:02:11,990 --> 00:02:12,470
+affairs office.
+
+79
+00:02:12,470 --> 00:02:13,750
+She's also a fellow Penn Stater.
+
+80
+00:02:13,750 --> 00:02:15,270
+We are Penn State.
+
+81
+00:02:15,270 --> 00:02:15,830
+Thank you.
+
+82
+00:02:16,070 --> 00:02:16,630
+You're welcome.
+
+83
+00:02:16,630 --> 00:02:18,310
+We're going to be taking questions live.
+
+84
+00:02:18,470 --> 00:02:20,550
+The Ohioan's rolling her eyes.
+
+85
+00:02:21,150 --> 00:02:23,870
+Well, the fellow Penn, Stater is going to be
+taking questions.
+
+86
+00:02:23,870 --> 00:02:25,150
+I don't know about that.
+
+87
+00:02:25,230 --> 00:02:25,790
+Yeah, we'll see.
+
+88
+00:02:25,790 --> 00:02:27,950
+From the web,
+
+89
+00:02:27,950 --> 00:02:30,270
+Jeff, do we have any questions to start
+
+90
+00:02:30,670 --> 00:02:30,910
+us off?
+
+91
+00:02:31,230 --> 00:02:31,790
+We sure do.
+
+92
+00:02:31,790 --> 00:02:34,140
+We have one from Twitter from Celery:
+
+93
+00:02:34,140 --> 00:02:36,780
+what do you have to do to stand,
+
+94
+00:02:36,780 --> 00:02:38,700
+out from all the other applicants?
+
+95
+00:02:39,240 --> 00:02:39,900
+That's a good question.
+
+96
+00:02:39,900 --> 00:02:41,910
+I think that question is for me.
+
+97
+00:02:42,300 --> 00:02:43,600
+Yeah, yeah, no, I'm just teasing.
+
+98
+00:02:43,910 --> 00:02:46,820
+Right, So we We are looking for a lot of
+
+99
+00:02:46,900 --> 00:02:49,150
+information on the resume that folks fill out.
+
+100
+00:02:49,460 --> 00:02:51,530
+So I would start by saying,
+
+101
+00:02:51,530 --> 00:02:53,310
+right, we want people to be very detailed
+
+102
+00:02:53,540 --> 00:02:55,230
+as they, describe their work experience,
+
+103
+00:02:55,230 --> 00:02:56,580
+and other experiences.
+
+104
+00:02:56,580 --> 00:02:58,230
+We also give,
+
+105
+00:02:58,230 --> 00:03:00,130
+applicants an opportunity to describe,
+
+106
+00:03:00,130 --> 00:03:01,860
+hobbies and interests that they have,
+
+107
+00:03:02,170 --> 00:03:05,140
+and we encourage applicants to put as much,
+
+108
+00:03:05,140 --> 00:03:06,990
+information there as possible as well.
+
+109
+00:03:07,770 --> 00:03:09,610
+When you're reviewing eighteen thousand
+
+110
+00:03:09,610 --> 00:03:10,010
+applications,
+
+111
+00:03:10,010 --> 00:03:10,730
+sometimes it's
+
+112
+00:03:10,970 --> 00:03:13,150
+the weird stuff that stands, out honestly,
+
+113
+00:03:13,150 --> 00:03:14,990
+an interesting hobby or an interesting,
+
+114
+00:03:14,990 --> 00:03:16,830
+project at work that right
+
+115
+00:03:16,830 --> 00:03:18,040
+an applicant may think, oh,
+
+116
+00:03:18,040 --> 00:03:19,490
+that's just what I do,
+
+117
+00:03:19,960 --> 00:03:22,690
+and so really we're looking for them to give,
+
+118
+00:03:22,690 --> 00:03:23,500
+us as much information
+
+119
+00:03:24,280 --> 00:03:24,690
+as possible.
+
+120
+00:03:25,490 --> 00:03:27,690
+Okay, that's a starting point.
+
+121
+00:03:27,990 --> 00:03:29,600
+That's a starting point for standing out.
+
+122
+00:03:29,830 --> 00:03:30,980
+Let's get into the details of what,
+
+123
+00:03:30,980 --> 00:03:32,280
+you need just in the first place.
+
+124
+00:03:32,280 --> 00:03:32,600
+Right?
+
+125
+00:03:32,600 --> 00:03:33,480
+So what's the—let's
+
+126
+00:03:33,480 --> 00:03:34,380
+start from the very minimum,
+
+127
+00:03:34,380 --> 00:03:34,850
+requirements.
+
+128
+00:03:34,850 --> 00:03:37,170
+What are you looking for as as a minimum,
+
+129
+00:03:37,170 --> 00:03:38,690
+requirement to become a NASA astronaut?
+
+130
+00:03:39,070 --> 00:03:39,930
+The minimum requirements are pretty,
+
+131
+00:03:39,930 --> 00:03:40,880
+straightforward, Gary.
+
+132
+00:03:41,200 --> 00:03:43,430
+We are— we require a master's
+
+133
+00:03:43,430 --> 00:03:43,910
+degree,
+
+134
+00:03:43,910 --> 00:03:44,720
+and that's actually,
+
+135
+00:03:44,720 --> 00:03:46,170
+something that's new this year.
+
+136
+00:03:46,480 --> 00:03:48,410
+We have always stated in our,
+
+137
+00:03:48,410 --> 00:03:50,010
+application process that advanced,
+
+138
+00:03:50,010 --> 00:03:51,050
+degrees are preferred.
+
+139
+00:03:51,050 --> 00:03:53,730
+This is just trying to be a little bit
+
+140
+00:03:53,970 --> 00:03:56,210
+more overt in what we're looking for,
+
+141
+00:03:56,210 --> 00:03:58,540
+in that most the majority of astronauts
+
+142
+00:03:58,540 --> 00:04:00,710
+have had a master's degree or beyond,
+
+143
+00:04:01,250 --> 00:04:03,000
+or test pilot school.
+
+144
+00:04:03,140 --> 00:04:04,820
+They also, beyond the degree,
+
+145
+00:04:04,900 --> 00:04:06,130
+have to have at least two,
+
+146
+00:04:06,130 --> 00:04:07,340
+years of professional experience,
+
+147
+00:04:07,340 --> 00:04:08,600
+and
+
+148
+00:04:08,600 --> 00:04:10,040
+then, being a
+
+149
+00:04:10,040 --> 00:04:10,770
+U.S. government agency,
+
+150
+00:04:10,770 --> 00:04:13,160
+we also require U.S. citizenship.
+
+151
+00:04:14,210 --> 00:04:15,080
+Very important.
+
+152
+00:04:15,470 --> 00:04:16,990
+Okay, so yeah, master's degree.
+
+153
+00:04:16,990 --> 00:04:19,650
+I guess you had to deal with the eighteen
+
+154
+00:04:19,650 --> 00:04:20,360
+thousand applications
+
+155
+00:04:21,060 --> 00:04:22,340
+last time, right?
+
+156
+00:04:22,340 --> 00:04:23,150
+But it turns out,
+
+157
+00:04:23,150 --> 00:04:25,280
+I guess, this twenty seventeen class had a
+
+158
+00:04:25,430 --> 00:04:26,640
+lot of master's anyway.
+
+159
+00:04:26,640 --> 00:04:29,290
+Is that is it sort of just narrowing in on
+
+160
+00:04:29,290 --> 00:04:30,850
+what, you already know that you're looking
+for?
+
+161
+00:04:30,850 --> 00:04:35,220
+And in the announcement, I encourage,
+applicants to review the announcement,
+online.
+
+162
+00:04:35,220 --> 00:04:38,250
+It's got a lot of specifics
+
+163
+00:04:38,250 --> 00:04:39,460
+that can count,
+
+164
+00:04:39,460 --> 00:04:40,680
+towards a master's degree,
+
+165
+00:04:40,680 --> 00:04:41,230
+etc.
+
+166
+00:04:41,630 --> 00:04:42,140
+So read the announcement.
+
+167
+00:04:47,480 --> 00:04:49,430
+It's got all the information that folks,
+
+168
+00:04:49,430 --> 00:04:50,250
+need to know whether
+
+169
+00:04:50,570 --> 00:04:51,390
+they're qualified, or not.
+
+170
+00:04:53,450 --> 00:04:55,440
+Now this might be a stupid question,
+
+171
+00:04:55,980 --> 00:04:55,990
+but
+
+172
+00:04:55,990 --> 00:04:58,310
+STEM—you know—we always talk about STEM
+
+173
+00:04:58,460 --> 00:04:58,630
+science,
+
+174
+00:04:58,630 --> 00:04:59,340
+technology, engineering,
+
+175
+00:04:59,340 --> 00:04:59,810
+math.
+
+176
+00:04:59,970 --> 00:04:59,980
+Why?
+
+177
+00:04:59,980 --> 00:05:02,180
+said Science, technology, engineering,
+method?
+
+178
+00:05:02,180 --> 00:05:02,840
+I'm a marketing major.
+
+179
+00:05:03,070 --> 00:05:03,510
+I want to go to space.
+
+180
+00:05:03,510 --> 00:05:04,320
+Why can't I go?
+
+181
+00:05:04,320 --> 00:05:05,950
+I've heard that from a lot of people lately.
+
+182
+00:05:05,950 --> 00:05:06,270
+Right,
+
+183
+00:05:06,960 --> 00:05:07,220
+the the.
+
+184
+00:05:07,500 --> 00:05:07,510
+A
+
+185
+00:05:07,660 --> 00:05:08,480
+core component of what
+
+186
+00:05:08,480 --> 00:05:09,750
+we're, asking folks
+
+187
+00:05:09,750 --> 00:05:10,660
+to do and to train,
+
+188
+00:05:10,890 --> 00:05:11,480
+and Kayla can probably,
+
+189
+00:05:11,480 --> 00:05:12,200
+speak to
+
+190
+00:05:12,200 --> 00:05:12,290
+this
+
+191
+00:05:12,290 --> 00:05:14,030
+as well, right,
+
+192
+00:05:14,030 --> 00:05:15,000
+there's a technical technological
+
+193
+00:05:15,000 --> 00:05:16,900
+component of that,
+
+194
+00:05:17,290 --> 00:05:21,070
+and so a lot of the jobs at NASA,
+
+195
+00:05:21,070 --> 00:05:22,420
+require that STEM background.
+
+196
+00:05:23,040 --> 00:05:24,060
+So.
+
+197
+00:05:24,370 --> 00:05:25,570
+Okay, yeah, it's ultimately.
+
+198
+00:05:26,490 --> 00:05:27,480
+Well, how has it helped you,
+
+199
+00:05:27,480 --> 00:05:29,500
+Kayla, with just some of your astronaut
+candidate,
+
+200
+00:05:29,500 --> 00:05:31,170
+training having that STEM background?
+
+201
+00:05:31,170 --> 00:05:32,160
+How has it helped you in
+
+202
+00:05:32,240 --> 00:05:32,810
+just the first,
+
+203
+00:05:32,810 --> 00:05:33,310
+few years of training?
+
+204
+00:05:34,120 --> 00:05:35,320
+That's a really good question.
+
+205
+00:05:35,320 --> 00:05:36,450
+I think in our training,
+
+206
+00:05:36,450 --> 00:05:37,330
+we're really generalists.
+
+207
+00:05:37,330 --> 00:05:38,910
+We're asked to understand,
+
+208
+00:05:38,910 --> 00:05:41,680
+and be able to operate in a lot of different,
+
+209
+00:05:41,680 --> 00:05:41,890
+contexts—whether
+
+210
+00:05:41,890 --> 00:05:43,860
+that's learning how to operate,
+
+211
+00:05:43,860 --> 00:05:45,070
+systems on the space station,
+
+212
+00:05:45,070 --> 00:05:46,600
+or fly a T-38,
+
+213
+00:05:46,600 --> 00:05:47,730
+or even work in Mission Control.
+
+214
+00:05:48,270 --> 00:05:50,020
+And so I think having
+
+215
+00:05:50,640 --> 00:05:52,820
+a tech—you know—a STEM background of
+
+216
+00:05:52,820 --> 00:05:53,630
+some kind helps,
+
+217
+00:05:53,630 --> 00:05:54,110
+give you
+
+218
+00:05:54,110 --> 00:05:55,480
+sort of the baseline skills,
+
+219
+00:05:55,480 --> 00:05:57,870
+you need to understand those things.
+
+220
+00:05:57,870 --> 00:05:59,010
+Because a lot gets thrown
+
+221
+00:05:59,010 --> 00:05:59,830
+at you, really fast,
+
+222
+00:06:00,370 --> 00:06:03,170
+so having a foundation that even though,
+
+223
+00:06:03,170 --> 00:06:04,340
+people come from a lot of different,
+
+224
+00:06:04,340 --> 00:06:05,360
+areas—whether that's
+
+225
+00:06:05,360 --> 00:06:06,160
+geology, microbiology,
+
+226
+00:06:06,160 --> 00:06:07,180
+engineering,
+
+227
+00:06:07,180 --> 00:06:09,410
+aviation, different parts of the military,
+
+228
+00:06:09,410 --> 00:06:12,430
+medicine—it kind of gives you a starting,
+
+229
+00:06:12,430 --> 00:06:14,100
+point to approach a lot of those problems.
+
+230
+00:06:14,100 --> 00:06:14,570
+Yeah,
+
+231
+00:06:14,570 --> 00:06:15,630
+that's huge because you don't—
+
+232
+00:06:15,630 --> 00:06:17,310
+you have to train on so many
+
+233
+00:06:17,540 --> 00:06:18,570
+different areas, right?
+
+234
+00:06:18,730 --> 00:06:20,660
+So having a baseline to be able to tackle,
+
+235
+00:06:20,660 --> 00:06:21,470
+all of these different
+
+236
+00:06:21,470 --> 00:06:22,900
+problems—STEM is probably,
+
+237
+00:06:22,900 --> 00:06:24,210
+one of the best ways to do that.
+
+238
+00:06:24,360 --> 00:06:25,150
+Very interesting.
+
+239
+00:06:25,770 --> 00:06:28,120
+So you talked about related experience.
+
+240
+00:06:28,120 --> 00:06:30,190
+Is it, so I'm assuming,
+
+241
+00:06:30,190 --> 00:06:32,520
+it has to deal with the related,
+
+242
+00:06:32,520 --> 00:06:34,700
+experience of what you have a degree in?
+
+243
+00:06:34,700 --> 00:06:35,650
+Yeah, right,
+
+244
+00:06:35,650 --> 00:06:36,390
+and there's some flexibility.
+
+245
+00:06:36,390 --> 00:06:37,740
+For example,
+
+246
+00:06:37,740 --> 00:06:39,650
+though, right, finishing a.
+
+247
+00:06:39,650 --> 00:06:40,970
+your degree,
+
+248
+00:06:40,970 --> 00:06:41,940
+and your master's degree,
+
+249
+00:06:41,940 --> 00:06:43,150
+and going in working as
+
+250
+00:06:43,150 --> 00:06:45,380
+a ski instructor—although fun and
+
+251
+00:06:45,380 --> 00:06:46,330
+wonderful—wouldn't,
+
+252
+00:06:46,330 --> 00:06:48,660
+we wouldn't, count that towards the two-year,
+
+253
+00:06:48,660 --> 00:06:49,610
+professional experience.
+
+254
+00:06:50,230 --> 00:06:51,560
+So it would need to be in a discipline.
+
+255
+00:06:51,990 --> 00:06:53,420
+Ideally equated with the
+
+256
+00:06:53,420 --> 00:06:55,580
+degree, we see right—some of the more,
+
+257
+00:06:55,580 --> 00:06:57,410
+general physics is an example.
+
+258
+00:06:57,410 --> 00:06:59,100
+You can get a degree in physics,
+
+259
+00:06:59,100 --> 00:07:00,720
+and do a lot of different things.
+
+260
+00:07:00,720 --> 00:07:01,930
+So we're looking for that.
+
+261
+00:07:02,530 --> 00:07:03,640
+Technology experience
+
+262
+00:07:03,640 --> 00:07:05,860
+that, that technological experience,
+
+263
+00:07:05,860 --> 00:07:07,300
+beyond the degree.
+
+264
+00:07:07,610 --> 00:07:08,580
+Beyond the degree.
+
+265
+00:07:08,970 --> 00:07:09,050
+Okay.
+
+266
+00:07:09,050 --> 00:07:09,890
+Now, what if you're a pilot?
+
+267
+00:07:10,520 --> 00:07:11,670
+Is there a little bit different,
+
+268
+00:07:11,670 --> 00:07:12,780
+scenario there?
+
+269
+00:07:13,100 --> 00:07:14,210
+Pilots, um.
+
+270
+00:07:14,320 --> 00:07:15,370
+You know, and it's interesting.
+
+271
+00:07:15,370 --> 00:07:16,560
+We still use,
+
+272
+00:07:16,560 --> 00:07:16,730
+in Kalo,
+
+273
+00:07:16,810 --> 00:07:18,590
+I'm sure we'll talk about this as well.
+
+274
+00:07:18,660 --> 00:07:20,690
+We still use the T-38 as a training,
+
+275
+00:07:20,690 --> 00:07:21,440
+vehicle, and so we do
+
+276
+00:07:21,510 --> 00:07:22,550
+still have pilot,
+
+277
+00:07:22,550 --> 00:07:24,370
+astronauts in the astronaut office.
+
+278
+00:07:24,370 --> 00:07:25,320
+If applying
+
+279
+00:07:25,860 --> 00:07:27,130
+to, as a pilot.
+
+280
+00:07:27,630 --> 00:07:30,130
+Uh, folks need to have a minimum of a
+thousand,
+
+281
+00:07:30,130 --> 00:07:32,990
+hours of pilot in command type.
+
+282
+00:07:33,290 --> 00:07:34,480
+Pilot in command,
+
+283
+00:07:34,480 --> 00:07:36,880
+hours in a high performance jet aircraft.
+
+284
+00:07:38,050 --> 00:07:38,710
+Okay, and Kayla, I'm
+
+285
+00:07:38,710 --> 00:07:38,880
+guessing
+
+286
+00:07:38,880 --> 00:07:40,640
+now—you were not a
+
+287
+00:07:40,640 --> 00:07:42,560
+pilot—you have various engineering
+
+288
+00:07:42,560 --> 00:07:43,040
+degrees—but
+
+289
+00:07:43,040 --> 00:07:45,220
+you're training in the T-38 anyway.
+
+290
+00:07:45,820 --> 00:07:48,520
+Yeah, so we our class has a
+
+291
+00:07:48,520 --> 00:07:49,020
+number of pilots,
+
+292
+00:07:49,020 --> 00:07:50,800
+but also a number of people from different,
+
+293
+00:07:50,800 --> 00:07:51,040
+backgrounds.
+
+294
+00:07:51,040 --> 00:07:53,040
+My background is in the submarine,
+
+295
+00:07:53,040 --> 00:07:53,550
+force in the Navy,
+
+296
+00:07:53,930 --> 00:07:55,180
+so after,
+
+297
+00:07:55,180 --> 00:07:57,620
+graduating from my master's program,
+
+298
+00:07:57,620 --> 00:07:59,240
+I went through the Navy's nuclear power,
+
+299
+00:07:59,240 --> 00:08:01,090
+training and then worked in a very,
+
+300
+00:08:01,090 --> 00:08:02,900
+operational context aboard submarines,
+
+301
+00:08:02,900 --> 00:08:03,870
+deploying in the Pacific.
+
+302
+00:08:04,490 --> 00:08:06,100
+So that was kind of applying engineering,
+
+303
+00:08:06,100 --> 00:08:07,480
+and that's how I got my.
+
+304
+00:08:07,850 --> 00:08:09,130
+You know years of professional,
+
+305
+00:08:09,130 --> 00:08:11,030
+experience that Ann is talking about,
+
+306
+00:08:11,030 --> 00:08:12,460
+but when we come here,
+
+307
+00:08:12,460 --> 00:08:14,110
+even if you're not a pilot, you learn how to fly.
+
+308
+00:08:14,110 --> 00:08:16,780
+So we train to fly
+
+309
+00:08:16,780 --> 00:08:18,080
+in the back, seat of the T-38.
+
+310
+00:08:18,150 --> 00:08:18,400
+thirty eight.
+
+311
+00:08:18,400 --> 00:08:20,170
+Originally in a role kind of doing,
+
+312
+00:08:20,170 --> 00:08:21,050
+communications and navigation,
+
+313
+00:08:21,750 --> 00:08:22,420
+but once we get qualified,
+
+314
+00:08:22,420 --> 00:08:23,130
+we
+
+315
+00:08:23,130 --> 00:08:24,580
+also help fly the jet too.
+
+316
+00:08:24,580 --> 00:08:27,080
+So, we use, it as an opportunity to train
+
+317
+00:08:27,080 --> 00:08:27,790
+with other,
+
+318
+00:08:27,790 --> 00:08:28,830
+crewmates, other astronauts,
+
+319
+00:08:29,610 --> 00:08:32,510
+to learn how to communicate, when you're in
+
+320
+00:08:32,510 --> 00:08:33,000
+a high-risk environment,
+
+321
+00:08:33,000 --> 00:08:34,260
+operating real machinery,
+
+322
+00:08:34,260 --> 00:08:36,310
+make decisions when things aren't going,
+
+323
+00:08:36,310 --> 00:08:37,070
+according to plan and things like that.
+
+324
+00:08:37,230 --> 00:08:38,900
+See, I feel like this communication,
+
+325
+00:08:38,900 --> 00:08:38,910
+aspect
+
+326
+00:08:38,910 --> 00:08:41,320
+has got to be a big, part of being an astronaut.
+
+327
+00:08:41,320 --> 00:08:43,060
+Cause what we're talking about,
+
+328
+00:08:43,060 --> 00:08:44,670
+now is when we're talking about this,
+
+329
+00:08:44,670 --> 00:08:45,320
+new class of astronauts.
+
+330
+00:08:45,430 --> 00:08:46,870
+And we can actually, bring up
+
+331
+00:08:46,870 --> 00:08:48,620
+the application here in a second.
+
+332
+00:08:48,620 --> 00:08:50,150
+But we're talking about this Artemis,
+
+333
+00:08:50,150 --> 00:08:51,020
+generation—you're talking about,
+
+334
+00:08:51,020 --> 00:08:53,090
+people who are going to be going
+
+335
+00:08:53,160 --> 00:08:53,490
+to different,
+
+336
+00:08:53,490 --> 00:08:56,140
+planets and have to live, together for a long
+period of time.
+
+337
+00:08:56,140 --> 00:08:56,650
+They have to coexist.
+
+338
+00:08:57,130 --> 00:08:58,870
+So getting along with your,
+
+339
+00:08:58,870 --> 00:09:00,330
+crewmates has got to be pretty important.
+
+340
+00:09:00,940 --> 00:09:01,830
+Do you find that in
+
+341
+00:09:01,830 --> 00:09:01,920
+the turtles,
+
+342
+00:09:01,920 --> 00:09:03,390
+or do you guys get along with each other?
+
+343
+00:09:03,620 --> 00:09:05,290
+Yeah, we get along really great.
+
+344
+00:09:05,670 --> 00:09:07,250
+I think graduation was really,
+
+345
+00:09:07,250 --> 00:09:08,920
+fun for us as a group,
+
+346
+00:09:08,920 --> 00:09:09,590
+because it was just a huge,
+
+347
+00:09:09,590 --> 00:09:11,340
+accomplishment for us as a team.
+
+348
+00:09:11,790 --> 00:09:13,420
+I mean, you get here and you start training,
+
+349
+00:09:13,570 --> 00:09:14,950
+and a lot is being asked of you,
+
+350
+00:09:14,950 --> 00:09:16,240
+and most of
+
+351
+00:09:16,240 --> 00:09:17,760
+our evaluations are really,
+
+352
+00:09:17,760 --> 00:09:19,040
+about our individual skills,
+
+353
+00:09:19,040 --> 00:09:19,440
+and performance.
+
+354
+00:09:19,440 --> 00:09:20,880
+You're kind of in the hot seat alone,
+
+355
+00:09:20,880 --> 00:09:21,520
+but we,
+
+356
+00:09:21,520 --> 00:09:24,400
+chose to approach our training as a team,
+
+357
+00:09:24,800 --> 00:09:26,800
+and wanted everybody to get to the finish,
+
+358
+00:09:26,800 --> 00:09:27,280
+line together.
+
+359
+00:09:28,620 --> 00:09:30,460
+And that made a huge difference for us
+
+360
+00:09:30,460 --> 00:09:33,870
+because everybody had something that they
+were really naturally good at,
+
+361
+00:09:34,180 --> 00:09:34,430
+and everyone
+
+362
+00:09:34,740 --> 00:09:35,890
+also on the other side had something that
+
+363
+00:09:35,890 --> 00:09:37,670
+was harder for them than they might have
+expected.
+
+364
+00:09:37,670 --> 00:09:40,130
+And so having the support of your peers,
+
+365
+00:09:40,130 --> 00:09:42,010
+made all of the difference in the world.
+
+366
+00:09:42,010 --> 00:09:44,730
+And we also do specific training geared,
+
+367
+00:09:44,730 --> 00:09:46,090
+towards getting to know each other,
+
+368
+00:09:46,090 --> 00:09:47,210
+and become good teammates.
+
+369
+00:09:47,210 --> 00:09:48,570
+We do things
+
+370
+00:09:48,650 --> 00:09:49,530
+like we went on a backpacking,
+
+371
+00:09:49,530 --> 00:09:51,610
+course with NOLS in the
+
+372
+00:09:51,610 --> 00:09:52,410
+Canyon, Lands in Utah.
+
+373
+00:09:52,740 --> 00:09:54,090
+That was really fun.
+
+374
+00:09:54,090 --> 00:09:55,930
+We also incorporate that kind of training,
+
+375
+00:09:55,930 --> 00:09:57,510
+whenever we're doing other,
+
+376
+00:09:57,510 --> 00:09:58,950
+kinds of training as well.
+
+377
+00:09:58,950 --> 00:10:00,620
+So we, get that kind of training in the Neutral,
+
+378
+00:10:00,620 --> 00:10:01,710
+Buoyancy Lab when you're,
+
+379
+00:10:01,710 --> 00:10:02,290
+working with a teammate,
+
+380
+00:10:02,830 --> 00:10:04,330
+practicing spacewalks skills or,
+
+381
+00:10:04,330 --> 00:10:05,760
+things like our geology training,
+
+382
+00:10:05,840 --> 00:10:07,060
+where we go out in the field,
+
+383
+00:10:07,060 --> 00:10:07,550
+and try to
+
+384
+00:10:07,710 --> 00:10:10,380
+learn about the geology of our,
+
+385
+00:10:10,380 --> 00:10:13,020
+planet so that we can apply that in future,
+exploration.
+
+386
+00:10:13,020 --> 00:10:14,240
+But a lot of that is about,
+
+387
+00:10:14,240 --> 00:10:15,420
+working as a
+
+388
+00:10:15,500 --> 00:10:16,480
+team, doing that in a group,
+
+389
+00:10:16,480 --> 00:10:18,050
+and taking advantage of everybody's,
+
+390
+00:10:18,050 --> 00:10:19,570
+skill sets to accomplish a mission.
+
+391
+00:10:19,870 --> 00:10:22,850
+I really want to go into what it's, like just these
+first couple years,
+
+392
+00:10:22,850 --> 00:10:23,490
+but first I,
+
+393
+00:10:23,490 --> 00:10:24,340
+want to take a look at the application,
+
+394
+00:10:24,340 --> 00:10:26,630
+and see what people can actually do.
+
+395
+00:10:26,710 --> 00:10:28,520
+So in order to go
+
+396
+00:10:28,520 --> 00:10:29,800
+to apply to be an astronaut,
+
+397
+00:10:29,800 --> 00:10:31,560
+thank you Jennifer, to for taking us here.
+
+398
+00:10:31,560 --> 00:10:33,000
+We're going to take a look at USA Jobs.
+
+399
+00:10:33,560 --> 00:10:35,480
+If you're, looking to apply to become an
+astronaut,
+
+400
+00:10:35,480 --> 00:10:36,120
+I would assume,
+
+401
+00:10:36,120 --> 00:10:37,720
+you would just search the title astronaut.
+
+402
+00:10:37,720 --> 00:10:39,320
+There it is, astronaut candidate.
+
+403
+00:10:39,320 --> 00:10:42,330
+Okay, because you're a candidate for the first,
+couple of years.
+
+404
+00:10:42,720 --> 00:10:44,780
+Okay, so you would go there,
+
+405
+00:10:44,780 --> 00:10:46,390
+you would click on Linda B.
+
+406
+00:10:46,390 --> 00:10:47,270
+Johnson Space Center.
+
+407
+00:10:47,270 --> 00:10:47,750
+That's where
+
+408
+00:10:47,750 --> 00:10:48,240
+we are today.
+
+409
+00:10:49,290 --> 00:10:50,330
+And here you go.
+
+410
+00:10:50,400 --> 00:10:51,450
+This is the application process,
+
+411
+00:10:51,450 --> 00:10:52,470
+and actually,
+
+412
+00:10:52,470 --> 00:10:54,160
+I've gone through this a couple times.
+
+413
+00:10:54,160 --> 00:10:54,970
+It's it's pretty dense.
+
+414
+00:10:55,050 --> 00:10:55,940
+There's a lot to it,
+
+415
+00:10:56,100 --> 00:10:57,530
+a lot of different responsibilities.
+
+416
+00:10:58,540 --> 00:10:59,620
+My favorite though is that one right there:
+
+417
+00:10:59,620 --> 00:11:00,800
+'Extensive travel required.'
+
+418
+00:11:00,800 --> 00:11:01,430
+Kayla,
+
+419
+00:11:01,500 --> 00:11:03,110
+I'm sure you're going to have to go,
+
+420
+00:11:03,110 --> 00:11:04,470
+many different places all over the world,
+
+421
+00:11:04,550 --> 00:11:05,350
+outside of the world.
+
+422
+00:11:05,350 --> 00:11:06,960
+There's, going to be an expectation of
+
+423
+00:11:06,960 --> 00:11:08,150
+being a NASA, astronaut.
+
+424
+00:11:08,680 --> 00:11:09,010
+Let's see.
+
+425
+00:11:09,010 --> 00:11:09,330
+Specialized.
+
+426
+00:11:09,330 --> 00:11:11,570
+Okay, here's a good section right here.
+
+427
+00:11:11,570 --> 00:11:13,120
+The degree fields—
+
+428
+00:11:13,120 --> 00:11:14,670
+what, when related to sciences—
+
+429
+00:11:14,670 --> 00:11:16,140
+because... Okay, here's—
+
+430
+00:11:16,140 --> 00:11:17,150
+that's a good point.
+
+431
+00:11:17,150 --> 00:11:18,130
+Because we're talking about STEM,
+
+432
+00:11:18,130 --> 00:11:18,600
+right?
+
+433
+00:11:18,600 --> 00:11:20,690
+We've said that science, technology,
+engineering, math.
+
+434
+00:11:21,160 --> 00:11:22,930
+Degrees in technology are actually not
+
+435
+00:11:22,930 --> 00:11:23,410
+considered qualifying.
+
+436
+00:11:23,410 --> 00:11:24,060
+That's interesting.
+
+437
+00:11:25,100 --> 00:11:26,860
+Are there, but it looks like
+
+438
+00:11:26,860 --> 00:11:28,300
+even some sciences though.
+
+439
+00:11:28,300 --> 00:11:30,860
+So what, looking at what's not what
+
+440
+00:11:30,860 --> 00:11:32,540
+you, what's not considered qualifying?
+
+441
+00:11:32,540 --> 00:11:35,540
+What, give me some examples of different,
+
+442
+00:11:35,540 --> 00:11:36,570
+engineering,
+
+443
+00:11:36,570 --> 00:11:40,020
+math, sciences that you're looking for.
+
+444
+00:11:40,230 --> 00:11:41,120
+So right, I think
+
+445
+00:11:41,430 --> 00:11:41,870
+engineering—
+
+446
+00:11:41,870 --> 00:11:43,460
+we probably see the majority of degrees,
+
+447
+00:11:43,460 --> 00:11:45,520
+coming from aerospace engineering,
+
+448
+00:11:45,520 --> 00:11:47,660
+mechanical engineering, electrical
+engineering,
+
+449
+00:11:47,660 --> 00:11:49,600
+calculus— sitting here next to me with
+systems,
+
+450
+00:11:49,600 --> 00:11:51,600
+engineering and also nuclear engineering.
+
+451
+00:11:52,220 --> 00:11:54,690
+So I think I think the majority of engineering,
+
+452
+00:11:54,690 --> 00:11:55,800
+disciplines,
+
+453
+00:11:55,800 --> 00:11:58,740
+we've probably had applications or,
+
+454
+00:11:58,740 --> 00:11:59,870
+candidates come from,
+
+455
+00:12:00,260 --> 00:12:01,710
+in the science arena.
+
+456
+00:12:01,710 --> 00:12:03,880
+Right, we have biological science majors.
+
+457
+00:12:03,880 --> 00:12:06,810
+We have the physical science majors.
+
+458
+00:12:07,040 --> 00:12:10,400
+We have, we see a lot of applications from
+
+459
+00:12:10,400 --> 00:12:11,200
+medical, doctors,
+
+460
+00:12:11,900 --> 00:12:13,430
+and that's an important skill,
+
+461
+00:12:13,430 --> 00:12:15,690
+set for the astronaut office to have and,
+
+462
+00:12:15,690 --> 00:12:18,250
+continue to have available to us as we,
+
+463
+00:12:18,250 --> 00:12:20,590
+look at putting together long duration, cruise,
+etc.
+
+464
+00:12:20,590 --> 00:12:23,040
+So, yeah, most
+
+465
+00:12:23,040 --> 00:12:24,180
+of the degrees that aren't,
+
+466
+00:12:24,180 --> 00:12:25,550
+qualifying are listed there,
+
+467
+00:12:25,550 --> 00:12:26,970
+you know,
+
+468
+00:12:26,970 --> 00:12:30,830
+as as curriculums change and majors evolve.
+
+469
+00:12:31,450 --> 00:12:32,360
+If there's ever any doubt,
+
+470
+00:12:32,360 --> 00:12:34,830
+we actually do research the degree,
+
+471
+00:12:34,830 --> 00:12:35,230
+program,
+
+472
+00:12:35,780 --> 00:12:39,570
+and look at the amount of math, and science
+classes that are required.
+
+473
+00:12:39,570 --> 00:12:41,940
+So if If there is a questionable degree,
+
+474
+00:12:41,940 --> 00:12:43,300
+we actually do the research,
+
+475
+00:12:43,300 --> 00:12:45,550
+and make sure that it would be qualifying.
+
+476
+00:12:46,170 --> 00:12:46,490
+Okay.
+
+477
+00:12:46,800 --> 00:12:48,180
+Now, Kayla, what made you want
+
+478
+00:12:48,180 --> 00:12:49,290
+to pursue systems,
+
+479
+00:12:49,290 --> 00:12:51,670
+engineering and then nuclear engineering?
+
+480
+00:12:51,670 --> 00:12:52,570
+When you were in school,
+
+481
+00:12:52,570 --> 00:12:53,310
+what were you thinking about?
+
+482
+00:12:53,550 --> 00:12:53,870
+Um.
+
+483
+00:12:54,920 --> 00:12:55,560
+Anne probably knows,
+
+484
+00:12:55,560 --> 00:12:56,610
+this from pursuing applications,
+
+485
+00:12:56,610 --> 00:12:57,400
+but systems,
+
+486
+00:12:57,400 --> 00:12:58,850
+engineering means a lot of different,
+
+487
+00:12:58,850 --> 00:13:01,270
+things at a lot of different, universities at the
+Naval Academy.
+
+488
+00:13:01,890 --> 00:13:02,860
+It's actually Control Systems,
+
+489
+00:13:02,860 --> 00:13:03,890
+and Robotics Engineering.
+
+490
+00:13:03,890 --> 00:13:06,130
+So I was attracted to that major initially,
+
+491
+00:13:06,130 --> 00:13:08,070
+because it was super interdisciplinary.
+
+492
+00:13:09,160 --> 00:13:11,080
+I liked electrical engineering, I liked coding,
+
+493
+00:13:11,700 --> 00:13:13,140
+and I liked, doing things
+
+494
+00:13:13,140 --> 00:13:14,340
+with an application focus.
+
+495
+00:13:14,340 --> 00:13:14,900
+And
+
+496
+00:13:14,900 --> 00:13:16,530
+so that was a good fit for me because,
+
+497
+00:13:16,530 --> 00:13:16,930
+I
+
+498
+00:13:16,930 --> 00:13:18,170
+got to dabble in a lot of different,
+
+499
+00:13:18,170 --> 00:13:18,820
+types of engineering,
+
+500
+00:13:19,440 --> 00:13:20,970
+and also work on bringing those,
+
+501
+00:13:20,970 --> 00:13:23,170
+disciplines together to accomplish,
+
+502
+00:13:23,170 --> 00:13:23,980
+something really tangible,
+
+503
+00:13:23,980 --> 00:13:24,690
+and
+
+504
+00:13:24,690 --> 00:13:26,370
+I found that really attractive.
+
+505
+00:13:26,370 --> 00:13:28,630
+And then during my time at the Naval,
+
+506
+00:13:28,630 --> 00:13:30,480
+Academy, I got really interested in
+
+507
+00:13:30,560 --> 00:13:31,750
+climate change,
+
+508
+00:13:31,750 --> 00:13:32,870
+and new energy,
+
+509
+00:13:32,870 --> 00:13:34,800
+technologies that would help,
+
+510
+00:13:34,800 --> 00:13:36,120
+us to deal with that longer term,
+
+511
+00:13:36,580 --> 00:13:37,180
+and I came to feel
+
+512
+00:13:37,180 --> 00:13:38,460
+that nuclear was a huge,
+
+513
+00:13:38,460 --> 00:13:39,910
+part of that future—
+
+514
+00:13:39,910 --> 00:13:41,150
+you know,
+
+515
+00:13:41,150 --> 00:13:42,660
+developing new nuclear generation,
+
+516
+00:13:42,660 --> 00:13:45,050
+technologies that had better waste,
+management profiles,
+
+517
+00:13:45,050 --> 00:13:46,770
+that were safer, and all of these other things.
+
+518
+00:13:47,390 --> 00:13:48,130
+And so that's why I,
+
+519
+00:13:48,130 --> 00:13:49,190
+wanted to do that in grad school.
+
+520
+00:13:49,190 --> 00:13:50,110
+So I went and did a research
+
+521
+00:13:50,110 --> 00:13:52,690
+degree, helping develop the fuel,
+
+522
+00:13:52,690 --> 00:13:54,330
+cycle for a
+
+523
+00:13:54,330 --> 00:13:54,900
+reactor that hopefully
+
+524
+00:13:54,900 --> 00:13:56,020
+will build, someday soon.
+
+525
+00:13:56,320 --> 00:13:56,890
+See, that's interesting,
+
+526
+00:13:56,890 --> 00:13:58,140
+because what you're talking about—
+
+527
+00:13:58,140 --> 00:13:58,510
+you were passionate,
+
+528
+00:13:58,510 --> 00:13:59,480
+when you were pursuing systems—
+
+529
+00:13:59,480 --> 00:14:00,200
+you were just,
+
+530
+00:14:00,200 --> 00:14:00,830
+passionate about
+
+531
+00:14:00,830 --> 00:14:02,140
+systems Systems engineering,
+
+532
+00:14:02,680 --> 00:14:03,570
+and we were pursuing nuclear.
+
+533
+00:14:03,650 --> 00:14:03,900
+It was—
+
+534
+00:14:03,900 --> 00:14:05,190
+you were just passionate about it.
+
+535
+00:14:05,190 --> 00:14:05,200
+It
+
+536
+00:14:05,200 --> 00:14:06,680
+seems like astronaut wasn't, even
+
+537
+00:14:06,680 --> 00:14:07,520
+on your mind at the time.
+
+538
+00:14:07,910 --> 00:14:09,820
+Yeah, you know that's a good question.
+
+539
+00:14:09,820 --> 00:14:11,580
+A lot of my colleagues, wanted to
+
+540
+00:14:11,660 --> 00:14:12,700
+be astronauts from when,
+
+541
+00:14:12,700 --> 00:14:13,210
+they were a little kid.
+
+542
+00:14:13,480 --> 00:14:15,610
+And they definitely were making,
+
+543
+00:14:15,610 --> 00:14:16,890
+choices to pursue things,
+
+544
+00:14:16,890 --> 00:14:18,020
+they were passionate about too,
+
+545
+00:14:18,020 --> 00:14:20,200
+but, always with a mind of keeping those
+doors,
+
+546
+00:14:20,200 --> 00:14:22,820
+open for themselves by studying the right,
+
+547
+00:14:22,820 --> 00:14:23,800
+things, maybe joining the military.
+
+548
+00:14:24,490 --> 00:14:25,550
+There's a lot of different,
+
+549
+00:14:25,550 --> 00:14:26,820
+tracks to get to these seats,
+
+550
+00:14:27,290 --> 00:14:28,570
+but for me,
+
+551
+00:14:28,570 --> 00:14:32,790
+I was always looking towards challenging,
+myself
+
+552
+00:14:33,420 --> 00:14:35,390
+as much as I could in each, subsequent
+opportunity.
+
+553
+00:14:35,390 --> 00:14:37,890
+So astronaut wasn't,
+
+554
+00:14:37,890 --> 00:14:39,130
+really a thing in the back of my mind.
+
+555
+00:14:39,520 --> 00:14:39,700
+It was something,
+
+556
+00:14:39,700 --> 00:14:40,840
+I always thought was really cool,
+
+557
+00:14:40,840 --> 00:14:42,280
+but didn't really picture myself doing.
+
+558
+00:14:42,280 --> 00:14:44,090
+And so I actually,
+
+559
+00:14:44,090 --> 00:14:45,200
+didn't become inspired
+
+560
+00:14:45,200 --> 00:14:45,920
+to apply until,
+
+561
+00:14:45,920 --> 00:14:47,680
+after I had served on a submarine.
+
+562
+00:14:47,760 --> 00:14:49,270
+When I left my submarine,
+
+563
+00:14:49,350 --> 00:14:51,220
+I went back to the Naval Academy to work,
+there,
+
+564
+00:14:51,220 --> 00:14:52,470
+and I got to meet a lot of really,
+
+565
+00:14:52,470 --> 00:14:53,260
+interesting people,
+
+566
+00:14:53,260 --> 00:14:54,460
+including a couple of astronauts,
+
+567
+00:14:55,160 --> 00:14:56,660
+and chatting with them,
+
+568
+00:14:56,660 --> 00:14:57,700
+talking about the time.
+
+569
+00:14:58,450 --> 00:14:59,900
+When they were building the space station,
+
+570
+00:14:59,900 --> 00:15:01,960
+I found really fascinating because it,
+
+571
+00:15:01,960 --> 00:15:03,010
+reminded me a lot of
+
+572
+00:15:03,010 --> 00:15:04,390
+the equipment that we, use on submarines.
+
+573
+00:15:04,390 --> 00:15:05,490
+You're also
+
+574
+00:15:05,490 --> 00:15:07,260
+trying to keep, people alive in an environment,
+
+575
+00:15:07,260 --> 00:15:08,380
+where they shouldn't exist.
+
+576
+00:15:08,380 --> 00:15:10,870
+You know, whether you're hundreds of feet,
+
+577
+00:15:10,870 --> 00:15:12,960
+below the surface of the ocean, or you know,
+
+578
+00:15:12,960 --> 00:15:13,840
+hundreds of miles,
+
+579
+00:15:13,840 --> 00:15:14,000
+above
+
+580
+00:15:14,000 --> 00:15:15,130
+the surface of the earth,
+
+581
+00:15:15,360 --> 00:15:18,960
+and so that really inspired me, because I
+started thinking of the space,
+
+582
+00:15:18,960 --> 00:15:20,560
+station as a submarine in space,
+
+583
+00:15:20,950 --> 00:15:22,990
+and the astronauts who
+
+584
+00:15:22,990 --> 00:15:23,720
+I talked to really,
+
+585
+00:15:23,720 --> 00:15:25,500
+encouraged me to keep thinking about that,
+and once it
+
+586
+00:15:25,500 --> 00:15:26,700
+stuck in my mind,
+
+587
+00:15:26,700 --> 00:15:28,620
+it became something that I could actually,
+
+588
+00:15:28,620 --> 00:15:29,880
+picture myself doing,
+
+589
+00:15:29,880 --> 00:15:31,280
+because I felt the role was so so similar.
+
+590
+00:15:32,050 --> 00:15:33,400
+And so for me,
+
+591
+00:15:33,480 --> 00:15:35,170
+it was just to always about pursuing,
+
+592
+00:15:35,170 --> 00:15:35,870
+things I was passionate about,
+
+593
+00:15:35,870 --> 00:15:37,230
+and that would be challenging because,
+
+594
+00:15:37,230 --> 00:15:38,130
+if I was doing something I
+
+595
+00:15:38,130 --> 00:15:39,110
+liked, even if it was hard,
+
+596
+00:15:39,560 --> 00:15:40,540
+I was going to enjoy it,
+
+597
+00:15:40,690 --> 00:15:41,760
+and get the most out of it,
+
+598
+00:15:41,760 --> 00:15:42,580
+and find it the most fulfilling.
+
+599
+00:15:43,040 --> 00:15:44,990
+So I think, something you see
+
+600
+00:15:44,990 --> 00:15:46,620
+around our office,
+
+601
+00:15:46,620 --> 00:15:47,980
+and especially in our classes,
+
+602
+00:15:48,220 --> 00:15:48,790
+everybody who was
+
+603
+00:15:48,790 --> 00:15:49,350
+hired was
+
+604
+00:15:49,350 --> 00:15:51,500
+doing, something that they really loved.
+
+605
+00:15:52,270 --> 00:15:53,870
+You know that they they,
+
+606
+00:15:53,870 --> 00:15:55,920
+obviously got their dream,
+
+607
+00:15:55,920 --> 00:15:56,800
+job by getting
+
+608
+00:15:56,800 --> 00:15:58,930
+the call to come, and be an astronaut, and they
+would never,
+
+609
+00:15:58,930 --> 00:16:00,170
+trade that for For anything,
+
+610
+00:16:00,170 --> 00:16:03,240
+but we all in some ways really, miss what we
+were doing before,
+
+611
+00:16:03,240 --> 00:16:04,760
+because we were pursuing things,
+
+612
+00:16:04,760 --> 00:16:05,950
+we are passionate about,
+
+613
+00:16:05,950 --> 00:16:08,350
+and so I think that's a common thread,
+
+614
+00:16:08,350 --> 00:16:10,730
+you see across the astronaut office.
+
+615
+00:16:11,040 --> 00:16:12,250
+And I think that's right.
+
+616
+00:16:12,250 --> 00:16:13,380
+Kayla hits upon a point.
+
+617
+00:16:13,420 --> 00:16:14,730
+I think that's one of the best
+
+618
+00:16:14,730 --> 00:16:16,660
+pieces of advice we can give folks,
+
+619
+00:16:16,660 --> 00:16:19,130
+and even especially young folks who may
+
+620
+00:16:19,210 --> 00:16:19,780
+still be aspiring
+
+621
+00:16:19,780 --> 00:16:21,770
+to pursue a STEM degree,
+
+622
+00:16:22,540 --> 00:16:22,630
+etc.,
+
+623
+00:16:22,630 --> 00:16:24,400
+is pursue something that That
+
+624
+00:16:25,020 --> 00:16:25,030
+you're
+
+625
+00:16:25,030 --> 00:16:26,650
+passionate about and that you enjoy.
+
+626
+00:16:26,720 --> 00:16:28,570
+We receive, thousands of applications
+
+627
+00:16:29,270 --> 00:16:30,800
+to be an astronaut, right?
+
+628
+00:16:30,800 --> 00:16:33,290
+And obviously, only a limited number are
+chosen,
+
+629
+00:16:33,290 --> 00:16:34,960
+but it really
+
+630
+00:16:34,960 --> 00:16:36,170
+resonates when
+
+631
+00:16:36,170 --> 00:16:36,890
+When folks get,
+
+632
+00:16:36,890 --> 00:16:38,590
+invited in and get come in to interview,
+
+633
+00:16:39,280 --> 00:16:42,650
+that they're happy in their jobs and, they've
+liked what they've done and right,
+
+634
+00:16:42,650 --> 00:16:44,270
+they've put their heart and soul into it.
+
+635
+00:16:44,430 --> 00:16:46,030
+Yeah, that seems to be a
+
+636
+00:16:46,110 --> 00:16:48,130
+pretty consistent theme, right?
+
+637
+00:16:48,290 --> 00:16:48,700
+So not
+
+638
+00:16:48,700 --> 00:16:51,390
+only do they have the qualifications
+
+639
+00:16:52,170 --> 00:16:52,840
+to become a NASA astronaut,
+
+640
+00:16:52,840 --> 00:16:55,330
+but they were good and they would be happy
+
+641
+00:16:55,330 --> 00:16:56,200
+in this
+
+642
+00:16:56,200 --> 00:16:57,490
+job that they had in
+
+643
+00:16:57,490 --> 00:16:59,270
+the first place because you're picking the
+
+644
+00:16:59,270 --> 00:17:00,890
+people that are best in their field,
+
+645
+00:17:01,810 --> 00:17:01,820
+right?
+
+646
+00:17:01,820 --> 00:17:02,160
+So, you know,
+
+647
+00:17:02,160 --> 00:17:02,720
+systems engineering,
+
+648
+00:17:02,720 --> 00:17:03,410
+nuclear engineering—
+
+649
+00:17:03,410 --> 00:17:04,140
+you were
+
+650
+00:17:04,140 --> 00:17:05,600
+one of the best in that field
+
+651
+00:17:05,980 --> 00:17:06,140
+with
+
+652
+00:17:06,140 --> 00:17:06,940
+the confined spaces
+
+653
+00:17:06,940 --> 00:17:08,300
+and living in those areas.
+
+654
+00:17:08,300 --> 00:17:09,740
+So, yeah, you pull that.
+
+655
+00:17:09,740 --> 00:17:11,520
+But even if you were still on the submarine,
+
+656
+00:17:11,520 --> 00:17:12,420
+you would still be happy.
+
+657
+00:17:12,980 --> 00:17:15,870
+Yeah, absolutely, and I think we get questions
+about that a lot.
+
+658
+00:17:15,870 --> 00:17:16,820
+And people say,
+
+659
+00:17:17,130 --> 00:17:18,420
+"Should I major in aerospace engineering,
+
+660
+00:17:18,420 --> 00:17:20,000
+or mechanical engineering?"
+
+661
+00:17:20,000 --> 00:17:21,850
+And you're like, "Which one do you like?"
+
+662
+00:17:21,850 --> 00:17:23,370
+A lot of times college students
+
+663
+00:17:23,370 --> 00:17:24,320
+ask me,
+
+664
+00:17:24,320 --> 00:17:24,900
+"Should I take Russian?"
+
+665
+00:17:24,920 --> 00:17:26,460
+I'm like, do you want to learn Russian,
+
+666
+00:17:26,460 --> 00:17:27,790
+or you know,
+
+667
+00:17:27,790 --> 00:17:27,880
+they're
+
+668
+00:17:27,880 --> 00:17:28,850
+just trying to see like,
+
+669
+00:17:29,080 --> 00:17:30,230
+do I need to be checking these
+
+670
+00:17:30,230 --> 00:17:30,390
+boxes,
+
+671
+00:17:30,390 --> 00:17:31,270
+and it's like,
+
+672
+00:17:31,500 --> 00:17:32,380
+like Anne was saying,
+
+673
+00:17:32,380 --> 00:17:32,620
+you
+
+674
+00:17:32,700 --> 00:17:33,590
+do have to choose
+
+675
+00:17:34,350 --> 00:17:34,830
+certain fields,
+
+676
+00:17:34,830 --> 00:17:36,400
+but there is a broad,
+
+677
+00:17:36,400 --> 00:17:37,930
+range of things you can do,
+
+678
+00:17:37,930 --> 00:17:39,650
+and, you just look at our class as an example.
+
+679
+00:17:39,730 --> 00:17:42,110
+We have everything from you know,
+
+680
+00:17:42,110 --> 00:17:43,150
+emergency medicine physicians
+
+681
+00:17:43,770 --> 00:17:43,860
+to Mars,
+
+682
+00:17:43,860 --> 00:17:45,770
+geologists to microbiologists that study,
+
+683
+00:17:45,770 --> 00:17:46,330
+cave slime,
+
+684
+00:17:46,330 --> 00:17:47,190
+and
+
+685
+00:17:47,270 --> 00:17:49,120
+a bunch of different military, roles too.
+
+686
+00:17:49,120 --> 00:17:50,440
+So there's a lot of different, paths
+
+687
+00:17:51,060 --> 00:17:52,740
+to get to be a you,
+
+688
+00:17:52,740 --> 00:17:54,260
+know a competitive, applicant for
+
+689
+00:17:54,260 --> 00:17:54,980
+the astronaut office.
+
+690
+00:17:55,440 --> 00:17:55,940
+Now, of course,
+
+691
+00:17:55,940 --> 00:17:57,050
+we're talking about degrees.
+
+692
+00:17:57,050 --> 00:17:57,600
+I
+
+693
+00:17:57,600 --> 00:18:00,980
+think we have a really good question, about
+just physical fitness from the web,
+
+694
+00:18:00,980 --> 00:18:01,300
+Jennifer.
+
+695
+00:18:01,300 --> 00:18:03,000
+Do we have a question about physical fitness?
+
+696
+00:18:03,580 --> 00:18:04,470
+Yeah, we sure do.
+
+697
+00:18:04,470 --> 00:18:05,850
+We have one from Twitter from Marie.
+
+698
+00:18:05,850 --> 00:18:08,770
+Are there particular exercises or fitness
+
+699
+00:18:09,230 --> 00:18:09,240
+regimes
+
+700
+00:18:09,240 --> 00:18:11,420
+a person ought to do if they wish to apply
+
+701
+00:18:11,420 --> 00:18:12,570
+to be an astronaut in the future?
+
+702
+00:18:13,320 --> 00:18:16,020
+Okay, so I guess just yeah about about fitness.
+
+703
+00:18:16,020 --> 00:18:17,410
+Kayla, do you have do you have any,
+
+704
+00:18:17,410 --> 00:18:19,180
+recommendations on just exercises,
+
+705
+00:18:19,180 --> 00:18:20,300
+or fitness, you
+
+706
+00:18:20,760 --> 00:18:21,740
+know, it's really interesting.
+
+707
+00:18:21,740 --> 00:18:22,930
+In our office,
+
+708
+00:18:22,930 --> 00:18:23,970
+there are people
+
+709
+00:18:23,970 --> 00:18:24,470
+who are passionate,
+
+710
+00:18:24,470 --> 00:18:25,430
+about a whole
+
+711
+00:18:26,130 --> 00:18:28,280
+range of different, fitness approaches.
+
+712
+00:18:28,520 --> 00:18:29,500
+Whether they like to run,
+
+713
+00:18:29,810 --> 00:18:30,080
+or do triathlons,
+
+714
+00:18:30,080 --> 00:18:30,940
+or
+
+715
+00:18:30,940 --> 00:18:32,310
+participate more in team sports.
+
+716
+00:18:32,990 --> 00:18:35,560
+A lot of everybody has sort of their own
+
+717
+00:18:35,560 --> 00:18:37,670
+thing they're passionate about doing and have
+fun doing,
+
+718
+00:18:38,050 --> 00:18:41,330
+and it's important to be fit of course and
+
+719
+00:18:41,330 --> 00:18:44,500
+healthy because flying in space does a lot
+
+720
+00:18:44,580 --> 00:18:46,450
+of puts a lot of stress on your body,
+
+721
+00:18:46,920 --> 00:18:50,010
+but there's no like particular aspect I
+
+722
+00:18:50,240 --> 00:18:51,390
+think that you have to do.
+
+723
+00:18:51,700 --> 00:18:54,010
+I think investing in your own fitness,
+
+724
+00:18:54,010 --> 00:18:55,540
+and health is super important.
+
+725
+00:18:55,630 --> 00:18:57,970
+But you can do that a lot of different ways.
+
+726
+00:18:57,970 --> 00:18:58,370
+Okay, yeah.
+
+727
+00:18:58,370 --> 00:18:59,980
+So it's just once once again,
+
+728
+00:19:00,360 --> 00:19:01,930
+here's this, it's that same theme—
+
+729
+00:19:01,930 --> 00:19:03,490
+finding something you're passionate, about—
+
+730
+00:19:03,490 --> 00:19:04,140
+whether it's cycling,
+
+731
+00:19:04,140 --> 00:19:05,170
+whether it's swimming,
+
+732
+00:19:05,170 --> 00:19:06,050
+whether it's weightlifting,
+
+733
+00:19:06,750 --> 00:19:07,630
+finding that thing,
+
+734
+00:19:07,630 --> 00:19:10,920
+and just having that be a habit for you,
+
+735
+00:19:11,150 --> 00:19:13,220
+to maintain that fitness consistently,
+
+736
+00:19:13,220 --> 00:19:14,990
+throughout your time as an astronaut.
+
+737
+00:19:14,990 --> 00:19:16,680
+Yeah, and we actually have trainers,
+
+738
+00:19:16,680 --> 00:19:18,040
+here at NASA who
+
+739
+00:19:18,040 --> 00:19:19,210
+specialize in advising, us.
+
+740
+00:19:19,210 --> 00:19:21,780
+Both when we're in space, but also preparing
+to go to space,
+
+741
+00:19:21,780 --> 00:19:23,080
+and then recovering when we get home,
+
+742
+00:19:23,390 --> 00:19:24,360
+and that's what they encourage.
+
+743
+00:19:24,360 --> 00:19:25,670
+They say, "What do you like to do?
+
+744
+00:19:25,670 --> 00:19:26,430
+What are you going to do consistently?"
+
+745
+00:19:26,430 --> 00:19:27,780
+Because that's, way better
+
+746
+00:19:28,170 --> 00:19:28,810
+than us prescribing,
+
+747
+00:19:29,660 --> 00:19:31,450
+you know, a very specific,
+
+748
+00:19:31,450 --> 00:19:32,520
+regimen
+
+749
+00:19:32,520 --> 00:19:34,050
+that you're not going to stick to.
+
+750
+00:19:34,050 --> 00:19:36,150
+Now, obviously, when you are on the space
+station,
+
+751
+00:19:36,150 --> 00:19:36,720
+for example,
+
+752
+00:19:36,720 --> 00:19:37,350
+there's
+
+753
+00:19:37,740 --> 00:19:39,160
+only specific equipment,
+
+754
+00:19:39,470 --> 00:19:40,760
+so you have two options.
+
+755
+00:19:40,920 --> 00:19:43,680
+But that being said,
+
+756
+00:19:44,140 --> 00:19:45,040
+they believe that you
+
+757
+00:19:45,110 --> 00:19:46,670
+can prepare in a lot of different ways.
+
+758
+00:19:46,740 --> 00:19:47,930
+Okay, so let's,
+
+759
+00:19:48,310 --> 00:19:50,770
+let's talk about just coming in.
+
+760
+00:19:50,770 --> 00:19:52,770
+Right, we talked about the application process,
+
+761
+00:19:52,770 --> 00:19:54,230
+we talked about the minimum applications.
+
+762
+00:19:54,230 --> 00:19:56,620
+Kayla, let's talk about that first time,
+
+763
+00:19:56,620 --> 00:19:58,080
+where you got the call that says,
+
+764
+00:19:58,080 --> 00:19:59,550
+"Hey, we're ready for you to come in."
