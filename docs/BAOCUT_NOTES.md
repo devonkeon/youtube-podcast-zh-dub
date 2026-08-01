@@ -750,3 +750,39 @@ vk-keymasks         = gemini:Personal（有 key）+ custom-c4d35ecb:Personal（�
 3. p5 的 >1.5x 变速单元 29 个（6.4%），比 p2（1 个）差：直播问答 cps=5.64、间隙紧。
    方向：超长 unit 走 LLM 重译缩短（SPEED_RESEARCH 第 3 节）。
 4. cps 实测第三次：p1=5.44 / p2=4.92 / **p5=5.64（直播问答偏快）**。5.2 仍是好中值，但直播类按 5.6 估。
+
+## 克隆音色 TTS（mimo / moss）接入（2026-08-02，Kimi）
+
+### API 调用约定（全部实测）
+
+**MOSS**（key 无限用，`api.mosi.cn`）：
+- `POST https://api.mosi.cn/v1/audio/speech`，**JSON body**（不是 multipart！）
+- `{"model":"moss-tts","version":"flash-20260626","input":文本,"ref_audio":"data:audio/wav;base64,…","ref_text":参考音频逐字稿,"language":"Chinese","response_format":"wav"}`
+- 直接返回 48kHz 立体声 wav。实测单次约 20-60s。
+- ⚠️ 变迁记录：旧 `MOSS-TTS` 模型已弃用（API 会报错提示换 `moss-tts` + `version=flash-20260626`）；
+  旧版要求的 multipart 上传在新版会报 `invalid json`，**新版只要 JSON**。workbench 里"绝不用 JSON 传 ref_audio"的注释已过时。
+- studio.mosi.cn（voice_id 流程）用这个 key 认证不过（4010），两套账号体系。
+
+**MiMo**（`api.xiaomimimo.com/v1`）：
+- `POST /chat/completions`，`{"model":"mimo-v2.5-tts-voiceclone","messages":[{user:语境描述},{assistant:文本}],"audio":{"format":"wav","voice":"data:…base64"}}`，
+  双 header：`api-key` + `Authorization: Bearer`。返回 JSON，`choices[0].message.audio.data` 是 base64 wav（24kHz 单声道）。
+- **极快**：实测单句 1.9s。user 消息可放情绪/语气描述（mimo 特有）。
+- ⚠️ env 里的 `XIAOMI_BASE_URL=…/anthropic` 是 chat 端点，TTS 要用 `api.xiaomimimo.com/v1`（代码里已分开）。
+- **配额会被同账号的批量任务挤爆**：实测 3 次调用后连续 429（用户当时在跑批量转录），代码里有熔断器自动降级。
+
+### build_dub.py 引擎链（已实现）
+
+`--voice s1=mimo:/ref.wav+moss:/ref.wav,zh-CN-YunjianNeural`
+- 链式降级：mimo → moss → edge-tts；429/401/403 触发**熔断**（该引擎后续整批跳过）
+- **时长护栏**：合成时长 > 字数×0.35s 时重采样一次，仍超时落到下一个引擎
+  （实测拦下 moss 把"因为它们…"生成成 10 秒静默的幻觉）
+- 文本预处理：合成前把 `…` 换成 `，`（省略号会诱导克隆引擎生成超长停顿）
+
+### p2 克隆音色实测（work/p2_clone2，output/p2_dubbed_clone.mp4）
+
+- ref 音频直接从原片按说话人切：s1=Dan Huot 10-22s、s2=Gary Jordan 45-58s（ref_text 用对应英文转录）
+- **克隆引擎实测语速 4.86 字/s**，比 edge-tts（3.90）更贴近 5.2 预算，不需要 rate 提升
+- 时长适配：30/66 零变速，>1.5x 有 11 个（max 2.95）——比 edge-tts 方案（1 个）差，
+  但换来的是**原说话人的音色**。取舍留给人耳验收：
+  `output/samples/p2_clone_turn1-2.mp4` / `p2_clone_cross-speaker.mp4`
+- 待定【推断·未验证】：克隆音色的"像不像"只有人耳能判；若像，>1.5x 那 11 个 unit 可以走 LLM 重译缩短来救

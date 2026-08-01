@@ -64,22 +64,155 @@ def merge_pathological(groups, min_dur=0.7, max_gap=0.2):
     return units
 
 
-async def synth_one(sem, unit, voice, outdir, rate=None, retries=4):
-    out = os.path.join(outdir, f"{unit['uid']}.mp3")
-    if os.path.exists(out) and os.path.getsize(out) > 0:
-        unit["mp3"] = out
-        return  # resume: skip already-synthesized
-    async with sem:
-        for attempt in range(retries):
-            try:
-                kw = {"rate": rate} if rate else {}
-                await edge_tts.Communicate(unit["text"], voice, **kw).save(out)
-                unit["mp3"] = out
-                return
-            except Exception as e:  # noqa: BLE001
-                unit["err"] = repr(e)[:200]
-                await asyncio.sleep(2 ** attempt)
-        raise RuntimeError(f"synth failed for {unit['uid']}: {unit.get('err')}")
+# ---------- TTS engines ----------
+# Voice spec (per --voice sid=SPEC):
+#   zh-CN-YunxiNeural                     edge-tts only
+#   moss:/path/ref.wav[,edge-voice]       MOSS clone (ref text from ref.wav同名.txt), then edge
+#   mimo:/path/ref.wav[,edge-voice]       MiMo clone first, then edge
+# Clone engines fall back to the edge voice on failure (429/timeout/5xx).
+
+MOSS_URL = "https://api.mosi.cn/v1/audio/speech"
+MOSS_MODEL = "moss-tts"
+MOSS_VERSION = "flash-20260626"  # MOSS-TTS was retired upstream; flash is the
+                                 # current version and wants JSON (not multipart)
+MIMO_MODEL = "mimo-v2.5-tts-voiceclone"
+MIMO_CTX = ("这是一档英文播客的中文配音。说话人是在录音室里轻松地访谈聊天，"
+            "语气自然、口语化，不要播音腔。")
+
+import base64  # noqa: E402
+import urllib.error  # noqa: E402
+import urllib.request  # noqa: E402
+
+
+def _data_uri(path):
+    mime = "audio/wav" if path.lower().endswith(".wav") else "audio/mpeg"
+    return f"data:{mime};base64," + base64.b64encode(open(path, "rb").read()).decode()
+
+
+def _http_json(url, obj, headers, timeout):
+    req = urllib.request.Request(url, data=json.dumps(obj, ensure_ascii=False).encode(),
+                                 headers=headers, method="POST")
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return r.read(), r.headers.get("content-type", "")
+
+
+def synth_moss(text, ref_wav, ref_text, out, timeout=300):
+    key = os.environ.get("MOSS_API_KEY")
+    if not key:
+        raise RuntimeError("MOSS_API_KEY not set")
+    obj = {"model": MOSS_MODEL, "version": MOSS_VERSION, "input": text,
+           "ref_audio": _data_uri(ref_wav), "ref_text": ref_text,
+           "language": "Chinese", "response_format": "wav"}
+    data, ct = _http_json(MOSS_URL, obj,
+                          {"Authorization": f"Bearer {key}",
+                           "Content-Type": "application/json"}, timeout)
+    if len(data) < 1000:
+        raise RuntimeError(f"moss audio too small ({len(data)}B)")
+    open(out, "wb").write(data)
+
+
+def synth_mimo(text, ref_wav, out, timeout=120):
+    key = os.environ.get("XIAOMI_API_KEY")
+    # NOTE: XIAOMI_BASE_URL in some env files points at the anthropic chat
+    # endpoint (…/anthropic) — TTS voiceclone lives at api.xiaomimimo.com/v1.
+    base = os.environ.get("XIAOMI_TTS_BASE_URL", "https://api.xiaomimimo.com/v1")
+    if not key:
+        raise RuntimeError("XIAOMI_API_KEY not set")
+    obj = {"model": MIMO_MODEL,
+           "messages": [{"role": "user", "content": MIMO_CTX},
+                        {"role": "assistant", "content": text}],
+           "audio": {"format": "wav", "voice": _data_uri(ref_wav)}}
+    data, _ = _http_json(base.rstrip("/") + "/chat/completions", obj,
+                         {"api-key": key, "Authorization": f"Bearer {key}",
+                          "Content-Type": "application/json"}, timeout)
+    audio = json.loads(data)["choices"][0]["message"]["audio"]["data"]
+    open(out, "wb").write(base64.b64decode(audio))
+
+
+async def synth_edge(text, voice, out, rate=None):
+    kw = {"rate": rate} if rate else {}
+    await edge_tts.Communicate(text, voice, **kw).save(out)
+
+
+def parse_voice_spec(spec):
+    """-> ordered chain of engine dicts.
+
+    SPEC: engine1+engine2,edge-fallback — clone engines join with '+',
+    plain names are edge-tts voices (fallbacks). Examples:
+      moss:/ref.wav+yunxi            -> moss clone, edge yunxi
+      mimo:/a.wav+moss:/b.wav,yunxi  -> mimo, moss, edge yunxi
+    """
+    chain = []
+    parts = spec.split(",")
+    for first in parts[0].split("+"):
+        if first.startswith("moss:"):
+            ref = first[5:]
+            txt = os.path.splitext(ref)[0] + ".txt"
+            chain.append({"engine": "moss", "ref": ref,
+                          "ref_text": open(txt).read() if os.path.exists(txt) else ""})
+        elif first.startswith("mimo:"):
+            chain.append({"engine": "mimo", "ref": first[5:]})
+        elif first:
+            chain.append({"engine": "edge", "voice": first})
+    for p in parts[1:]:
+        if p:
+            chain.append({"engine": "edge", "voice": p})
+    return chain
+
+
+async def synth_one(sem, unit, chain, outdir, rate=None, retries=3, broken=None,
+                    guard_secs=0.35):
+    """Try each engine in the chain; per-engine circuit breaker for 429/401/403.
+
+    Duration guard: clone engines can hallucinate long pauses (observed: moss
+    turning "因为它们…" into 10s of mostly silence). If synth exceeds
+    chars*guard_secs, retry the same engine once, then fall through.
+    """
+    broken = broken if broken is not None else {}
+    text = unit["text"].replace("…", "，").replace("...", "，")  # … drives long pauses
+    limit = max(len(text) * guard_secs, 1.5)
+    last = None
+    for eng in chain:
+        name = eng["engine"]
+        ext = ".mp3" if name == "edge" else ".wav"
+        out = os.path.join(outdir, f"{unit['uid']}.{name}{ext}")
+        if os.path.exists(out) and os.path.getsize(out) > 0:
+            unit["src"] = out
+            unit["engine"] = name
+            return  # resume: skip already-synthesized
+        if broken.get(name):
+            last = f"{name} circuit-open"
+            continue
+        async with sem:
+            for attempt in range(retries):
+                try:
+                    if name == "edge":
+                        await synth_edge(text, eng["voice"], out, rate)
+                    elif name == "moss":
+                        await asyncio.to_thread(synth_moss, text, eng["ref"],
+                                                eng["ref_text"], out)
+                    elif name == "mimo":
+                        await asyncio.to_thread(synth_mimo, text, eng["ref"], out)
+                    dur = ffprobe_dur(out)
+                    if dur > limit:
+                        last = f"{name} dur-guard {dur:.1f}s>{limit:.1f}s"
+                        os.unlink(out)
+                        if attempt == 0:
+                            continue  # one free resample on the same engine
+                        break  # then fall through to the next engine
+                    unit["src"] = out
+                    unit["engine"] = name
+                    return
+                except urllib.error.HTTPError as e:
+                    last = f"{name} HTTP {e.code}"
+                    if e.code in (401, 403, 429):
+                        broken[name] = True  # quota/auth problems: stop trying
+                        break
+                    await asyncio.sleep(2 ** attempt)
+                except Exception as e:  # noqa: BLE001
+                    last = f"{name}: {repr(e)[:150]}"
+                    await asyncio.sleep(2 ** attempt)
+    raise RuntimeError(f"all engines failed for {unit['uid']}: {last}")
 
 
 # edge-tts pads utterances with leading/trailing silence (measured: ~1.15s on a
@@ -122,7 +255,7 @@ def main():
                     help="target track length (default: last group end)")
     a = ap.parse_args()
 
-    voices = dict(v.split("=", 1) for v in a.voice)
+    voices = {k: parse_voice_spec(v) for k, v in (s.split("=", 1) for s in a.voice)}
     outdir = a.outdir or f"work/{a.project}"
     os.makedirs(outdir, exist_ok=True)
 
@@ -140,18 +273,21 @@ def main():
 
     sem = asyncio.Semaphore(a.conc)
     rate = None if a.rate.lower() == "none" else a.rate
+    broken = {}  # shared per-engine circuit breaker (429/401/403)
     async def run():
         await asyncio.gather(*[synth_one(sem, u, voices[u["speakerId"]], outdir,
-                                         rate=rate)
+                                         rate=rate, broken=broken)
                                for u in units])
     asyncio.run(run())
+    if broken:
+        print("circuit-open engines (fell back):", list(broken), file=sys.stderr)
 
     # fit + place
     wavs = []
     for u in units:
         # decode + trim silence first, THEN measure (edge-tts pads a lot)
         twav = os.path.join(outdir, f"{u['uid']}_trim.wav")
-        subprocess.run([FFMPEG, "-v", "error", "-y", "-i", u["mp3"],
+        subprocess.run([FFMPEG, "-v", "error", "-y", "-i", u["src"],
                         "-af", f"aresample={SR},{TRIM}", "-ac", "1", "-ar", str(SR),
                         twav], check=True)
         synth = ffprobe_dur(twav)
@@ -189,9 +325,12 @@ def main():
     os.unlink(graph.name)
 
     stretches = [u["stretch"] for u in units]
+    from collections import Counter
+    engines = Counter(u.get("engine") for u in units)
     report = {
         "project": a.project,
         "units": len(units),
+        "engines": dict(engines),
         "merged": [u.get("merged_from") for u in units if u.get("merged_from")],
         "voices": voices,
         "total_dur": total,
