@@ -181,9 +181,11 @@ M3 验证用的命令已全部跑完并存档（`docs/BAOCUT_NOTES.md` ## M3）�
 2. 原视频文件在 BaoCut 项目目录下的位置（mux 的底片）—— **M5 之前必须解决**
 3. 病态组（`dur<0.7s 且 gap<0.2s`，实测存在 `g28.7` cps=32.3）的合并兜底方案 —— **M4**
 4. edge-tts 并发限流阈值（先按 4 试）
-5. BaoCut 能否用它自己配置的 LLM 跑完 polish/translate/align 而**不走 agent 循环**
-   （`model list` 里有一行 `cline-pass/deepseek-v4-flash cloud · connected`）——
-   若可以，M6 长播客的时间成本会大幅下降，**值得优先调查**
+5. ~~BaoCut 能否用它自己配置的 LLM 跑完 polish/translate/align~~ —— **已验证（2026-08-02）**：
+   GUI 能自跑（p101：102 分钟视频 app 自跑翻译约 40 分钟，比 agent 循环快约 10×），
+   但**只在 GUI 手动发起时**，不接 CLI 任务队列（探针实验 p3/t-msajktfg 证实）。
+   推荐混合链路：CLI `transcribe` → GUI 点一次翻译 → CLI 读数据。详见 `BAOCUT_NOTES.md` "LLM 自跑路径调查"。
+   残留【推断·未验证】：GUI 对 CLI 创建的项目点翻译是否同样走 app 自跑。
 
 ## 架构修正 v2（2026-08-01，用户 review 后）
 
@@ -191,7 +193,7 @@ M3 验证用的命令已全部跑完并存档（`docs/BAOCUT_NOTES.md` ## M3）�
 |---|---|---|
 | 1 | **TTS 必须整批合成后切开，禁止逐句合成** | 逐句会造成克隆音色漂移 + 句间韵律断裂；用户既往播客项目已反复踩到。沿用既有 multi-TTS 批量方案 |
 | 2 | **新增「说话人确认门」，默认单一音色** | 用户既有工作流「张冠李戴」反复发生；配错音色比不分音色更糟。多音色需过分歧确认门，分歧 > 5% 未确认则自动降级 |
-| 3 | **翻译改由 BaoCut GUI 用用户已配置的 API 自己跑**，CLI 只读数据 | `auto --help` 明确 CLI 自己不调 LLM，必须外部 agent 驱动；GUI 有用户配好的翻译 API。可省掉 agent 循环的巨大时间成本 |
+| 3 | **翻译优先走 BaoCut GUI 自跑（用户已配置的 gemini-3.5-flash），CLI 只读数据** | 2026-08-02 验证：app 自跑比 agent 循环快约 10×（102 分钟素材 40 分钟），但 GUI 不接 CLI 任务队列，需在 GUI 手动发起；agent 循环留作兜底 |
 | 4 | 撤回"translate 阶段拿不到时长"的说法 | 时间轴一直在 `subtitle list` 的 `start`/`end` 里，随时可查。原表述把一个中间步骤的局部现象说成了系统性问题 |
 
 ## ⚠️ 头号风险：多人节目的说话人识别 —— ✅ 已解除（2026-08-02，M3 过门）

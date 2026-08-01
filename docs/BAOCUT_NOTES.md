@@ -620,3 +620,46 @@ wmsah7v2h-52 s1  103.11-106.39  "Gravity, and that's kind of the ultimate, diffe
 - 对 M4 的约束：音色表 `s1=Dan Huot（嘉宾，男中音）/ s2=Gary Jordan（主持人，男中音）`；接力句按 group 切音色。
 - 流程修正（写回 STATE.md 的 M3 步骤）：**frames 视觉确认只在"镜头随说话人切换"的素材上有效**；
   分屏/双机位同框素材改用「人名字幕锚点 + ⏹ 标记对齐 + 双提案 diff」组合确认。
+
+## LLM 自跑路径调查（已执行 ✅ 2026-08-02，Kimi）——GUI 能自跑，但不接 CLI 任务
+
+**问题**：BaoCut 能否用它自己配置的 LLM 跑完 polish/translate/align，不走 agent 循环？
+这决定长播客（M7）的时间预算。
+
+### 证据 1：tasks-history.json 里存在 app 自跑的完整记录（真实数据）
+
+```
+p101 "Translate subtitles" · source:"app" · outcome:"done" · 2026-07-26 01:25→02:05（约40分钟）
+  detail.llm 含真实 SYSTEM prompt + reqTokens/resTokens（app 直接调 LLM API）
+  detail.changesTotal:635 · fallback:11
+  该项目的源视频 mediaDur:6157s（102 分钟！）
+对照：p1/p2 的 CLI 任务 source:"cli" · model:"agent"（外部 agent 驱动，3.5 分钟视频约 37 分钟）
+```
+
+**app 自跑的 LLM 阶段比 agent 循环快约一个数量级**（102 分钟素材 40 分钟 vs 3.5 分钟素材 37 分钟）。
+
+### 证据 2：GUI 确实配了 LLM（defaults read com.jimliu.baocut）
+
+```
+vk-ai-last-model    = gemini-3.5-flash
+vk-keymasks         = gemini:Personal（有 key）+ custom-c4d35ecb:Personal（有 key，sk-…3f27）
+```
+（`model list` 里的 `cline-pass/deepseek-v4-flash` 是**语音识别**目录里的云端 ASR 条目，与 LLM 阶段无关，此前STATE.md 的理解有误。）
+
+### 证据 3：探针实验 —— GUI 不会接走 CLI 创建的任务（2026-08-02 实测）
+
+- 切 25 秒探针片段 → `auto /tmp/llm_probe.mp4 --lang zh --no-speakers` → p3 / t-msajktfg
+- 转录 54 秒内完成（25s 素材，qwen3-asr-0.6b），随后 `pendingCount:1 (polish)` · `waitingOn:answer-workers`
+- **BaoCut GUI 保持运行，轮询 4 分多钟，pendingCount 始终为 1，GUI 没有接走**
+- 实验后 `task cancel t-msajktfg` 清理
+
+### 结论与推荐链路
+
+- CLI 的 task 队列**设计上就只接受外部 agent**（`task --help` 原话："with the agent supplying every model answer"）。
+- app 自跑只在 **GUI 里手动发起**时发生（app 侧任务 id 形如 `task-ai-*`，不走 claim/submit 队列）。
+- **推荐混合链路**：CLI `transcribe`（只转录，不产生 LLM pending，本地 ASR 快）
+  → **GUI 里点一次翻译**（app 用自己的 gemini-3.5-flash 跑 polish+translate，约 0.4× 实时）
+  → CLI 读 `subtitle list` 做配音层。每条视频仅需一次人工点击。
+- 留待验证【推断·未验证】：GUI 对 CLI 创建的项目点翻译是否同样走 app 自跑（p101 大概率是 GUI 创建；
+  项目存储共享，预计可行，下次开 GUI 时点一下 p3 即可终验）。
+- agent 循环保留为兜底（无 GUI 环境 / 需要自定义 instructions 时）。
