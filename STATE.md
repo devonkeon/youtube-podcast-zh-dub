@@ -19,19 +19,21 @@
 
 ## 已知问题 / 待验证假设
 
-- `target_chars = dur × 5.2` 是估算值，需在 Brief 4 用真实数据校准（可能落在 4.8–5.5）
-- faster-whisper large-v3 在这台 Mac 上的转录速度未实测，可能需要切 AssemblyAI
+- **SPEC 里 `groups.json` 的字段是按 CLI `--help` 推断的**，必须用 Brief 0 的真实 JSON 校正
+- BaoCut `task wait / submit` 的 prompt 契约未实操过，Brief 0 必须走完一遍完整循环
+- group 的绝对起止时间从哪个字段取，未确认（回落方案：解析导出的 SRT cue 时间）
+- `target_chars = dur × 5.2` 是估算值，需在 Brief 2 用真实数据校准（可能落在 4.8–5.5）
+- BaoCut 本地 MLX ASR 在这台 Mac 上的速度未实测
 - edge-tts 的并发限流阈值未实测，先按并发 4 试
-- 说话人分离（多主持人音色映射）质量未验证，必要时首版退化为单音色
-- BaoCut.app 已装但**不在主链路**，仅作可选字幕输入，暂不实现
+- 说话人识别质量未验证，必要时首版退化为单音色
 
 ## 决策记录
 
 | 决策 | 理由 |
 |---|---|
-| 不 fork KrillinAI/VideoLingo，自建垂直管线 | 播客场景可砍掉唇形/画面重绘/多语种，自建更简单可控 |
-| 翻译阶段就约束中文字数 | 现成工具靠高倍变速硬压，听感差；这是本项目产品差异点 |
+| **以 BaoCut 0.8.3 为前半链路，本项目只做配音层** | CLI 实测证明它有词级时间戳、语义分组、翻译、说话人、质检、双语导出，且 `--json` 可被 agent 驱动；重写只会更差更慢 |
+| 不 fork KrillinAI/VideoLingo | 大而全 + GUI，播客垂直场景用不上多语种/唇形/画面重绘 |
+| 字数约束落在"说得完"而非"看得下" | BaoCut 的 align 拟合的是字幕单行容量（CJK 16 字），配音需要 `字数 ≈ 时长 × 5.2` |
 | 默认 edge-tts | 免费无 key、中文播客音色好、原生支持 rate 调节 |
-| 不以 BaoCut 为依赖 | 它无法提供词级时间戳，会拖垮断句质量 |
 | 不复用同目录 `../youtube-zh-dub` | 其 STATE 自述从未真实运行过，链路选型（BaoCut + macOS say）不成立 |
 | 输出 mp4 而非 mkv | QuickTime/IINA/VLC 都能切音轨；mov_text 字幕够用 |

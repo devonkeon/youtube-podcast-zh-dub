@@ -11,20 +11,43 @@
 | **pyVideoTrans** (`pyvideotrans.com`) | Python 桌面 | faster-whisper → 翻译 → TTS → `videotrans/task/rate.py` 做**配音/字幕/视频三方对齐** | 时长对齐模块是本项目最该借鉴的部分（变速 + 补静音 + 片段合并） |
 | **SmartSub / 妙幕** (`buxuku/smartsub`) | Electron 桌面 | 转字幕→翻译→润色→TTS 配音→烧录 | 产品形态参考（桌面一条龙），非管线参考 |
 | **voice-pro** (`abus-aikorea/voice-pro`) | Gradio | YouTube 下载→人声分离→Whisper→翻译→TTS | 多了 UVR 人声分离，播客场景可选（保留背景音乐） |
-| **BaoCut** (`baocut.app`, 本机 `/Applications/BaoCut.app` 已安装) | macOS 应用 | 英文视频→中文字幕 | **只做字幕，没有音轨**。定位为可选的字幕来源，不作为主链路依赖 |
+| **BaoCut 0.8.3** (`baocut.app` / `JimLiu/baocut`，本机已安装) | macOS 应用 + `baocut-cli` | yt-dlp 收 URL → MLX 本地 ASR（**词级时间戳**）→ 语义分组 → polish → LLM 翻译 → 说话人识别 → audit/finish-check → 导出双语 SRT/视频/剪辑工程 | **缺的只有音轨**。前半条链路是成熟产品，质量高于我们自研 |
+
+### BaoCut 能力实测（2026-08-01，`baocut-cli --help` 及各子命令 `--help` 原始输出）
+
+```
+timing repair    repair zero/negative-duration words          → 每个词有独立时长
+subtitle retime  linearly remap the cue's word times          → 词级时间可重映射
+subtitle split   --at <t|wordId>, splits AFTER that word      → 词有稳定 id
+caption          native word-level motion                     → 词级动画
+align list --fit  列出超出单行容量的翻译组，给出 cpsChars/splittable/overHard
+task start align  不重译、只重新切分对齐（Phase 2）
+export --srt --bilingual --lang zh   原文+译文，按 source-cue 时间轴
+--json (全局)     每个结果带 status，动作结果带 projectId
+auto <file|URL> --lang zh            transcribe → polish → translate 一个任务搞定
+audit / finish-check                 覆盖率、行宽、时序、闪烁、验收门
+```
+
+关键结构：`subtitle list` 返回原文 cue id（`q-…`）与译文 group id；译文与源 cue 是**多对一分组**模型。CLI 自己不调 LLM，`task wait` 把待办 prompt 以文件引用交给外部 agent，`task submit` 同步 lint——**翻译由我们驱动的 agent 写，风格与字数完全可控**。
 
 商业方案（HeyGen / Rask / ElevenLabs Dubbing / VMEG）：质量高、含唇形同步，但闭源、按分钟计费、不可控。仅作质量标尺。
 
 ## 2. 判断（基于以上事实）
 
-1. **不从零造轮子，也不 fork 任何一个**。KrillinAI/VideoLingo 都是"大而全 + GUI"，把 YouTube 播客这一垂直场景做深反而更简单：播客是**单机位、说话人少、背景音乐轻、无需唇形同步**，可以砍掉视频重绘、唇形、人声分离等重模块。
-2. **必抄的三件事**：
-   - VideoLingo 的「词级时间戳 → 语义断句」（断句错，后面全错）
-   - VideoLingo 的「翻译要带上下文 + 二次反思」
-   - pyVideoTrans 的「时长对齐 = 变速 + 补静音 + 段间隔保持」
-3. **必须自研的一件事**：**让 LLM 在翻译时就控制中文字数**，把时长对齐从"事后补救"提前到"源头约束"。这是现有开源工具做得最差的一环（它们普遍靠 1.5x 以上变速硬压，听感明显发飘）。这是本项目的产品差异点。
-4. **BaoCut 只作可选字幕输入**，不作依赖——它无法提供词级时间戳，会拖垮断句质量。
-5. 首版**不做唇形同步**。播客场景收益极低、成本极高。
+1. **以 BaoCut 为前半条链路，本项目只做"配音层"**。这正是最初的设想：*在其上增加中文翻译的音轨*。
+   BaoCut 已覆盖 ingest / 词级 ASR / 语义分组 / polish / 翻译 / 说话人 / 字幕导出 / 质检，
+   且有 `--json` CLI 供 agent 驱动。自研这半条只会更差更慢。
+2. **本项目自研且只自研**：TTS 合成 → 时长适配 → 绝对时间轴拼接 → ffmpeg 双音轨双字幕封装 → 人耳样片验收。
+3. **产品差异点仍然成立，但落点变了**。BaoCut 的 `align` 把译文拟合到**字幕单行容量**（`--fit`，CJK 默认 16 字），
+   这是"看得下"的约束；配音要的是"**说得完**"的约束 —— 目标是 `字数 ≈ 时长 × 5.2`。两者不是一回事。
+   我们在 BaoCut 的 `task` 循环里注入配音字数区间，把时长对齐提前到翻译阶段；
+   剩余超长组再用 `subtitle set --lang zh` 定点压缩重写并重合成。
+4. **KrillinAI / VideoLingo / pyVideoTrans 不 fork，只借鉴一点**：pyVideoTrans 的
+   「变速 + 补静音 + 保持段间隔」是我们 fit 阶段的参考实现。
+5. 首版**不做唇形同步、不做人声分离**。播客场景收益低、成本高。
+
+> **更正记录**：本文件初版曾断言"BaoCut 无词级时间戳、不能作主链路"。该结论**未经核实且错误**，
+> 已被上表的 CLI 原始输出推翻，架构随之改为以 BaoCut 为前半链路。
 
 ## 3. 本机环境实测（2026-08-01，用户 Mac）
 

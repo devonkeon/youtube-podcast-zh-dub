@@ -18,25 +18,29 @@ zhdub run 'https://youtu.be/VIDEO_ID'
 | [PLAN.md](PLAN.md) | PDCA 执行计划 + 7 份可独立验收的 Agent 任务书 + 风险预案 |
 | [STATE.md](STATE.md) | 当前基线 / 下一步 / 已知问题（每个 Brief 完成后更新） |
 
-## 设计要点（为什么不直接用现成工具）
+## 设计要点
 
-现成工具（KrillinAI、VideoLingo、pyVideoTrans）都是"全语种 + GUI"的大而全方案，
-在**英文播客 → 中文**这一条垂直路径上做了不必要的妥协：翻译不控字数，靠 1.5x 以上
-变速硬压回原时长，听感发飘。
+**本项目只做配音层。** BaoCut 0.8.3 已经把前半条链路做成了成熟产品——内置 yt-dlp 收 URL、
+MLX 本地 ASR（词级时间戳）、语义分组、polish、LLM 翻译、说话人识别、质检验收门、双语字幕导出，
+并且有 `baocut-cli --json` 供 agent 驱动。重写这半条只会更差更慢。
 
-本项目的差异点是**把时长对齐提前到翻译阶段**：按每段原时长算出中文目标字数
-（≈ 5.2 字/秒），让 LLM 在这个字数区间内写口播稿；只有仍然超长时才用变速（上限 1.30），
-再超长就退回去让 LLM 压缩重写。同时砍掉播客场景用不上的唇形同步与画面重绘。
+差异点在**字数约束的落点**：BaoCut 的 `align` 把译文拟合到*字幕单行容量*（CJK 默认 16 字），
+那是"看得下"；配音要的是"**说得完**"——目标 `字数 ≈ 时长 × 5.2`。我们在 BaoCut 的 task 循环里
+注入配音字数区间，把时长对齐提前到翻译阶段；剩余超长组再定点压缩重写并重合成。
+只有仍超长才动变速（上限 1.30）。
+
+首版不做唇形同步、不做人声分离——播客场景收益低、成本高。
 
 ## 技术路线
 
 ```
-yt-dlp 下载 → faster-whisper 词级时间戳 → 规则语义断句 →
-LLM 两遍翻译(带上下文+字数约束) → edge-tts 中文合成 →
-时长对齐(变速/补白/绝对时间轴贴入) → ffmpeg 双音轨双字幕封装 → QC + 人耳样片
+BaoCut：URL → 词级 ASR → 语义分组 → polish → 翻译(注入配音字数约束) → 双语 SRT + audit
+  ↓ baocut --json subtitle list / export
+本项目：edge-tts 合成 → 时长适配(变速/补白/回退重写) → 绝对时间轴拼接
+        → ffmpeg 双音轨双字幕封装 → QC + 3 段人耳样片
 ```
 
-Python 3.11 · ffmpeg · yt-dlp · faster-whisper / AssemblyAI · edge-tts（可选 MiMo 声音克隆）
+Python 3.11 · BaoCut ≥ 0.8.3 · ffmpeg · edge-tts（可选 MiMo 声音克隆）
 
 ## 交付标准
 
