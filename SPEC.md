@@ -82,14 +82,25 @@ runs/<projectId>/
 3. **翻译 prompt 注入（本项目的差异点）**：在 translate 类 prompt 的答案里，
    除 BaoCut 原有要求外，额外遵守：
    - 中文播客主播口语：去掉 uh / you know / I mean，长句拆短，被动改主动，术语保留英文原词
-   - **字数区间**：该组时长 `dur` → 目标 `dur × cps`（默认 5.2），允许 `×0.85 ~ ×1.15`
+   - **字数区间**：目标 `avail × cps`（cps 默认 5.2），允许 `×0.85 ~ ×1.15`
    - 术语表 `config/glossary.json` 全量注入
-4. `baocut --json subtitle list <pid> --lang zh` → 转成 `work/groups.json`：
+
+   ⚠️ **M1 实测：translate payload 里没有任何时长字段**，只有 `maxChars`——那是**字幕单行
+   阅读速度预算**（9 个非空白字符/秒的显示上限），与配音语速无关，**不可直接当字数预算用**。
+   所以时长必须由我们自己算：claim 到 translate 待办后，先跑
+   `subtitle list <pid> --lang zh --limit 500` 拿到各组 `start/end`，算出 `avail` 与
+   `target_chars`，再写译文。【推断·未验证】translate payload 的行 id 与 `subtitle list`
+   的 group id 是否一一对应 —— **M3 第一件事就是验证这个映射**，对不上则退化为
+   "先照常翻译，再用 `subtitle set` 定点压缩重写"。
+4. `baocut --json subtitle list <pid> --lang zh --limit 500` → 转成 `work/groups.json`。
+   **字段映射已由 M2 实测定死**（`docs/BAOCUT_NOTES.md` M2-1）：
+   `id→gid` · `start/end→start/end`（绝对秒）· `text→text_zh` · `source→text_en` ·
+   `speakerId→speaker` · `hidden=true` 的组**不配音**。
    ```json
-   [{"gid":"...","start":12.34,"end":17.80,"dur":5.46,"speaker":"A",
-     "text_en":"...","text_zh":"...","target_chars":28,"actual_chars":31}]
+   [{"gid":"g1.0","start":3.24,"end":4.77,"dur":1.53,"gap":4.65,"avail":2.03,
+     "speaker":"s1","text_en":"Something for every sky watcher.",
+     "text_zh":"献给每一位仰望星空的人。","target_chars":10,"actual_chars":12}]
    ```
-   `start/end` 取该 group 覆盖的源 cue 的首末词时间。
 5. `baocut export <pid> --srt --bilingual --lang zh -o subtitles/bilingual.srt`（同理导出 zh / en）
 6. `baocut audit <pid>` 与 `finish-check` 有 blocker → **中止**，不进入配音
 
@@ -106,17 +117,28 @@ runs/<projectId>/
 
 ### 阶段 C · fit（时长适配）
 
-令 `src_dur = group.dur`，`tts_dur = len(wav)`：
+**★ 可用时长不等于 group 时长。** M2 实测（见 `docs/BAOCUT_NOTES.md`）：只用 group 自身时长时，
+28% 的组需要 >1.25 变速，逼近 FAIL 线；允许向后续静音间隙溢出 60% 后降到 12%。
+
+```
+gap      = next_group.start − this_group.end      # 组间静音
+avail    = dur + max(0, min(gap × 0.6, gap − 0.15))   # ★ 可用时长，至少留 0.15s 呼吸
+```
+
+令 `tts_dur = len(wav)`：
 
 | 情况 | 处理 |
 |---|---|
-| `tts_dur ≤ src_dur` | 原速，尾部补静音至 `src_dur` |
-| `src_dur < tts_dur ≤ src_dur × max_speed` | `ffmpeg atempo=tts_dur/src_dur` 压到 `src_dur` |
-| `tts_dur > src_dur × max_speed` | **回退重写**：`baocut subtitle set <pid> <gid> --lang zh --text "<压缩到 target_chars×0.8 的新译文>"`，重合成（最多 2 轮）；仍超则 `atempo=max_speed` 并在 QC 记 WARN |
+| `tts_dur ≤ avail` | 原速，尾部补静音至 `avail` |
+| `avail < tts_dur ≤ avail × max_speed` | `ffmpeg atempo=tts_dur/avail` 压到 `avail` |
+| `tts_dur > avail × max_speed` | **回退重写**：`baocut subtitle set <pid> <gid> --lang zh --text "<压缩到 avail×cps×0.8 字的新译文>"`，重合成（最多 2 轮）；仍超则 `atempo=max_speed` 并在 QC 记 WARN |
 
+- `target_chars` 一律按 **`avail × cps`** 算，不是 `dur × cps`
 - `atempo` 单个上限 2.0，本项目封顶 1.30，单个足够
 - 拼接：生成与原视频等长的静音底轨，**按 `start` 绝对定位贴入**（禁止顺序拼接，会累积误差）
-- 段间保持原始静音间隔
+- **病态组兜底**：`dur < 0.7s 且 gap < 0.2s` 的组（M2 实测存在，如 `g28.7` cps=32.3）
+  变速和压缩都救不了 → 与相邻**同 speakerId** 组合并共享时间预算后再分配；
+  合并后仍超标则记 FAIL，不许静默放过
 
 **验收**：`|len(zh_dub.wav) − 视频时长| < 0.5s`；每单元起始偏差 < 100ms。
 
