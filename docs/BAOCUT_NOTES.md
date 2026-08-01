@@ -365,3 +365,194 @@ p75 已到 6.98，最大 32.31 —— 逐组硬塞会大面积赶字。
 | group 绝对起止时间字段 | ✅ M2 已验证（`start`/`end`） |
 | `task wait/submit` 的 prompt 与答案格式 | ✅ M1 已验证（见 M1 各 kind 样例） |
 | 原视频在 BaoCut 项目目录下的位置 | ⬜ **仍未确认，M5 mux 之前必须解决** |
+
+## M3-loop · 双人素材 BaoCut 跑通记录（已执行 ✅ 2026-08-01）
+
+任务：`taskId=t-msagprsx`，`projectId=p2`，素材为 NASA《Houston We Have a Podcast》第 1 集第 5–8 分钟，**双人录音室访谈**（主持人 Gary Jordan + 一位 NASA 嘉宾），180 秒，英译中。全程从 `task status` 发现 `pendingCount:1` 开始，用 `task claim` → 读 payload/contract → 写答案 → `task submit --next` 循环驱动到 `status:"done"`，**9 次 submit，全部一次通过（`"attempt":1`），没有遇到任何 `rejected`**。
+
+### 1. kind 列表、次数、submit 总次数、耗时（真实数据）
+
+| kind | 次数 | callId |
+|---|---|---|
+| polish | 1 | c0001 |
+| repunct | 1 | c0002 |
+| translate | 1 | c0003 |
+| align | 6 | c0004, c0005, c0006, c0007, c0008, c0009 |
+| **合计** | **9** | |
+
+与 M1（单人 3.5 分钟视频）的 kind 结构**完全一致**（polish×1 / repunct×1 / translate×1 / align×6 = 9 次），双人素材并没有因为多一个说话人而多出额外的 submit 轮次。
+
+耗时（真实数据，来自 `task status` / `task submit` 返回的字段，本 agent 本身没有在会话最开始调用过 `date` 做基准，故用引擎自己的计时字段回推）：
+- 任务自身 `"startedAt":"2026-08-01T14:24:13Z"`（UTC，即北京时间 22:24:13）。
+- 本 agent 第一次 `task status` 轮询时返回 `"elapsedSec":82`，即真实时间约 **14:25:35 UTC**；当时 `"pendingByKind":{"polish":1}`，说明转录/分句已提前跑完，polish 是第一个待办。
+- 最后一次 `task submit`（c0009 → `--next`）与随后的确认性 `task status` 均返回 `"elapsedSec":2340`，即真实时间约 **15:03:13 UTC**（39 分 00 秒）。
+- 因此本 agent 从接手（首次看到 `pendingCount:1`）到任务 `status:"done"`，跨度 ≈ `2340-82=2258` 秒，约 **37 分 38 秒**（覆盖 c0001~c0009 全部 9 次 submit）。
+- 落笔记录本节时执行 `date`，真实输出：`2026-08-01 15:04:49 UTC` / `2026-08-01 23:04:49 CST`，与上面的完成时刻（15:03:13 UTC）相差约 1 分 36 秒，用于写文档，吻合。
+- 最终 summary（引擎原话）：`"571 words · 27 edits · polish PASS · retries 0 · recovered pages 0 · fallback pages/sentences 0/0 · residual terms 0 · 2 speakers · 33 lines → Chinese (Simplified)"`
+
+### 2. 各 kind 样例：payload 片段 + 我们提交的答案
+
+**说明**：与 M1 一致，这几类 payload 磁盘上都是单行 JSON/纯文本，下面对较长的做了截断并注明；答案是我们自己写的多行文件，按“前 30 行”截取。
+
+#### (a) polish — callId c0001（唯一一份，1 行，3098 字符）
+
+payload 原文（`payloads/c0001.txt`，真实输出，截取开头到第一个说话人切换标记）：
+```
+I ⏸ mean, some Soyuz rides have been as little as like six hours, right? Relatively ⏸ easy. Going to space is only rocket science. Don't want to trivialize. ⏸ ⏹ It's still, and even that's the— you even have to admonish myself— it's still not easy to go to space. ...(后略，完整文本共出现 3 处 ⏹ 说话人切换标记，见下第 4 节)
+```
+
+我们提交的答案 `/tmp/p2_c0001.json`（真实文件，全文 27 行，未超 30 行）：
+```json
+{
+  "summary": "Two speakers discuss how, even though some spaceflights like short Soyuz missions can seem easy, human spaceflight remains an extremely complex and risky undertaking, especially compared to future goals like traveling to Mars. They explain that gravity, or the lack of it, is the key factor that makes engineering in space fundamentally different from on Earth, citing examples such as capillary action in fluid systems and astronaut water supplies. They describe the International Space Station as the first large-scale modern test bed for learning to live and operate in space, building on decades of prior U.S. and Russian space station experience.",
+  "terms": [
+    {"term": "Soyuz", "note": "Russian crewed spacecraft that ferries astronauts to and from the International Space Station."},
+    {"term": "International Space Station", "note": "Also referred to as the ISS."},
+    {"term": "capillary action", "note": "Physical phenomenon that lets fluids move without relying on gravity, referenced regarding spacecraft fluid and fuel systems.", "observedVariants": ["capillary reaction"]},
+    {"term": "Mars", "note": "Referenced as a future target for human space exploration."}
+  ],
+  "namedEntities": ["Soyuz", "International Space Station", "Mars", "Earth", "United States", "Russia"],
+  "paragraphs": [
+    {"sentences": ["I mean, some Soyuz rides have been as little as like six hours, right?", "Relatively easy.", "Going to space is only rocket science.", "Don't want to trivialize."]},
+    {"sentences": ["It's still, and even that's the— you even have to admonish myself— it's still not easy to go to space.", "It's still, I mean, it is rocket—rocket science—it's literal rocket science, which is hugely complex, and there's always inherent risk and all these other things."]},
+    ...（后略 12 段，完整 14 段/36 句，一次通过，无 warnings）
+  ]
+}
+```
+
+#### (b) repunct — callId c0002（唯一一份，1 行，2 个待切分段落）
+
+payload 原文（`payloads/c0002.txt`，真实输出，完整）：
+```json
+{"budget":42,"segs":[{"id":21,"text":"Like, little—those little tiny things are things that make the huge difference in being able to kind of explore the solar system.","cm":"Like, little—those<c18> little<c25> tiny<c30> things<c37> are<c41> things<c48> that<c53> make<c58> the<c62> huge<c67> difference<c78> in<c81> being<c87> able<c92> to<c95> kind<c100> of<c103> explore<c111> the<c115> solar<c121> system."},{"id":35,"text":"And so you have all of these different technologies that—like I said earlier—everything you do in space is different from the way that you do it on planet Earth, where, you know, you have.","cm":"...(省略中段 cm 序列)...know<c172> you<c182> have."}],"v":2}
+```
+
+我们提交的答案 `/tmp/p2_c0002.json`（真实文件，完整，1 行）：
+```json
+{"segs":[{"id":21,"cuts":[{"id":"c48","m":","},{"id":"c87","m":","}]},{"id":35,"cuts":[{"id":"c28","m":","},{"id":"c51","m":","},{"id":"c87","m":","},{"id":"c121","m":","}]}]}
+```
+提交结果：一次通过，无 warnings。id=35 这句 160 字符按 42 宽度算至少要切 4 刀（3 刀在数学上不可行，因为候选 seam 在 `c68`→`c87` 之间有 19 字符的空档，逼得任何 3 刀方案都凑不出满足两端预算的组合），实测提交也确认了这个判断。
+
+#### (c) translate — callId c0003（唯一一份，33 行 lines，4513 字符）
+
+payload 原文（`payloads/c0003.txt`，真实输出，节选前两条 + 尾部）：
+```json
+{"lang":"zh","lines":[{"maxChars":27,"id":"g1.0","source":"I mean, some Soyuz, rides have been as little as like, six hours, right?"},{"maxChars":40,"id":"g1.14","source":"Relatively easy. Going to space is only rocket science. Don't want to trivialize."}, ...(中略 31 条)..., {"maxChars":112,"id":"g16.0","source":"And so you have all of these, different technologies, that—like I said earlier—everything, you do in space is different from, the way that you do it on planet Earth, where, you know, you have."}],"context":"Chapters: Transcript"}
+```
+
+我们提交的答案 `/tmp/p2_c0003.json`（真实文件，完整 60 行，前 30 行如下）：
+```json
+{
+  "summary": "两位主持人围绕 NASA 载人航天展开对话：虽然像联盟号这样的短途任务只需几个小时，看似轻松，但太空飞行本身依然极其复杂、充满风险，尤其是与未来登陆火星等目标相比。他们指出，重力（或者说太空中重力的缺失）是让太空工程与地面工程截然不同的核心因素，并以毛细作用如何影响流体系统、宇航员饮水系统等例子加以说明。最后，他们将国际空间站描述为人类学习长期太空生活与作业的现代化试验平台，这也建立在美俄两国此前数十年空间站经验的基础之上。",
+  "glossary": [
+    {"source":"Soyuz","target":"联盟号","note":"俄罗斯联盟号飞船的通行中文译名。","locked":false},
+    {"source":"International Space Station","target":"国际空间站","note":"标准中文译名，全篇统一使用，不用英文原词或裸缩写。","locked":false},
+    {"source":"capillary action","target":"毛细作用","note":"物理学标准译法；原文曾误识别为 capillary reaction，已统一订正。","locked":false},
+    {"source":"Mars","target":"火星","locked":false},
+    {"source":"Earth","target":"地球","locked":false},
+    {"source":"U.S.","target":"美国","locked":false},
+    {"source":"Russia","target":"俄罗斯","locked":false},
+    {"source":"gravity","target":"重力","note":"全篇反复出现的核心概念，统一译为“重力”。","locked":false}
+  ],
+  "namedEntities": ["Soyuz","International Space Station","Mars","Earth","United States","Russia"],
+  "styleGuide": "这是一档 NASA 播客的双人对谈，主持人 Gary Jordan 与一位 NASA 嘉宾就国际空间站展开轻松但专业的讨论...(完整版含配音口语化规则，见提交文件)",
+  "difficulties": [
+    "口水词与自我打断（you know / I mean / like，以及 that's the— 这类未说完就改口的表达）需要在中文里删减或合并，只保留自然口语停顿感，不能逐字直译。",
+    "...(后略 4 条)"
+  ],
+  "translations": {
+    "g1.0": "有些联盟号任务才六个小时，对吧？",
+    "g1.14": "相对简单。去太空说到底就是搞火箭科学。我也不想把话说轻巧了。",
+    "g1.27": "但这事儿吧，我得提醒自己——去太空，真没那么容易。"
+    ...(后略 30 条，共 33 条 translations，一次通过，无 warnings)
+  }
+}
+```
+
+#### (d) align（6 次中出现次数最多）— 示例 callId c0004
+
+payload 原文（`payloads/c0004.txt`，真实输出，仅摘录被判定需要修正的一条）：
+```json
+{"sm":"But<@0> when<@1> you<@2> start<@3> comparing<@4> it<@5> to,<@6><#0> you<@7> know,<@8> going<@9> to<@a> Mars,<@b> ...<#3> it's,<@10> ...easy,<@16> but<@17> it's<@18> still<@19> a<@1a> monumental<@1b> undertaking.","id":"wmsah7v2e-8","problems":["unit boundary after \"know,\" (word 15) was placed by proportional timing snapped to punctuation ...","unit boundary after \"that,\" (word 36) was placed by proportional timing snapped to punctuation ..."],"pt":["火星"],"tm":"可<@0>一旦<@1>拿<@2>它<@3>跟<@4>去<@5>火星，<@6><#0>或<@7>者...<#3>但<@q>即便<@r>这样，<@s>它<@t>仍然<@u>是<@v>一<@w>项<@x>了不起<@y>的<@z>壮举。"}
+```
+
+我们提交的答案 `/tmp/p2_c0004.json`（真实文件，完整，1 行）：
+```json
+{"pairs":[{"id":"wmsah7v2e-8","action":"rewrite","reasonCode":"reorder","reason":"原译把两次比较合并成一个跟A、B相比的框架，相比动词被推迟到末尾，导致火星、银河系、容易等核心内容比源文对应单元提前一个单元出现；改写为按源文顺序对每个比较对象分别使用跟...比，使目标内容与源文单元一一对齐，中文仍自然通顺。","pieces":[{"through":"b","t":"但要是拿它跟去火星比，"},{"through":"o","t":"或者跟我们那些遍布太阳系、"},{"through":"z","t":"银河系的宏伟目标比，"},{"through":"16","t":"这就只能算是“容易”的了。"},{"through":"end","t":"但即便这样，它仍然是一项了不起的壮举。"}]}]}
+```
+提交结果：一次通过，附 1 条 warning（`wmsah7v2e-8 unit 5` 19 字，超 14 字瞄准值但在 20 字容忍上限内，未强行切分，非拒绝）。
+
+align 其余 5 次（c0005~c0009）做法一致：**契约标出 `"problems"` 的 pair 必须返回修正**（本次 24 个 pair 里有 8 个带 `problems`，全部修正）；带 `"advisory"` 的（3 个，均为 CPS 超速提示）判断后也选择修正；其余 13 个未标注问题的 pair 逐条核对语义边界后判断"已是最佳切法，不动"。6 次共改了 11 处，其中：
+- **recut（纯挪边界，不改文字）6 处**：`g16.0`（核实后确认原边界正确，用 recut 显式确认）、`g4.26`、`g11.28`、`g1.45`、`g12.14`、`g14.0`——共性原因是源文按字符比例机械切分，切在了介词/冠词/复合词中间（如 `针<#0>对` 把"针对"这个词从中间切开、`there's<@g><#2>` 把 "there's" 和它的宾语 "always inherent risk" 分家）。
+- **rewrite，reasonCode:"reorder" 2 处**：`wmsah7v2e-8`、`g5.11`——中文自然语序把英文分散的两次"跟…比"合并/前置，导致内容整体错位一个单元，按契约 HARD RULE 改写为跟随源文分句顺序、但仍自然的中文。
+- **rewrite，reasonCode:"grammar"（压缩语速）3 处**：`g1.14`、`g7.11`、`g11.0`——均为 `advisory` 提示译文按时长换算超过 9.0 字/秒成人语速上限（9.1～10.7 字/秒不等），删掉非必要虚词或换更短同义词压缩 1～3 字，语义不变。
+
+### 3. rejected 记录
+
+**本次 9 次 submit 全部一次通过（`"attempt":1`），零拒绝**，没有真实的"原始错误 + 怎么改好"案例可贴。
+
+过程中收到 **9 条 `warnings`**（c0004×1、c0006×2、c0007×2、c0008×2、c0009×2），全部是"译文片段超出 14 字瞄准值但在 20 字容忍上限内，未强行切分"一类的告知信息，`task submit` 照常返回下一个 `callId`，不影响流程。原文示例（`g11.28` 一条比较特别，明确说合并方案"可行但也可以选择再切一刀"，仍不算拒绝）：
+```
+"translation segment is 18 chars — above the 14-char aim; splitting at the natural balanced clause punctuation ， cut (\"这影响了一切——\" | \"从输送火箭燃料，到…\") is preferred but optional" (loc: g11.28 unit 2)
+```
+
+### 4. 双人素材特有的观察（对主线程说话人验证最重要）
+
+**结论先行：polish/repunct/translate/align 四类 payload 里都没有名为 `speaker` / `speakerId` / `role` 之类的独立字段。** 说话人信息只在 **polish 阶段的原始转录文本里以内联标记形式存在**，逐条核实如下：
+
+1. **字段名/载体**：polish 契约（`polish.md`）原文明确写道：*"Some words are followed by a "⏹" marker: the SPEAKER CHANGES after that word — a sentence must NEVER span across it."* 也就是说说话人切换不是一个 JSON 字段，而是**混在转录文本字符串里的标记字符 `⏹`**（与表示停顿强度的 `⏸`/`⏸⏸`/`⏸⏸⏸` 同一套记号体系）。真实 payload `c0001.txt` 里一共出现 **3 处 `⏹`**（对应本 180 秒片段里 4 段说话人轮次）。repunct（`c0002.txt`）、translate（`c0003.txt`）、align（`c0004~c0009.txt`）的 payload 结构里**完全没有**再出现任何说话人相关字段——`⏹` 标记只活在 polish 这一步，polish 输出（`summary/terms/namedEntities/paragraphs`）本身也不携带说话人标签，是纯文本+段落结构。
+
+2. **转录文本里的轮换是否明显**：明显。3 处 `⏹` 中有 2 处落在完整句尾（`"trivialize."` 之后、`"undertaking."` 之后），从内容上看也确实像是话轮交接点——比如 `⏹` 之后紧跟 `"Yeah, and that's why. So we're doing that just like you said."`，"just like you said" 这种措辞明显是在回应*另一个人*刚说过的话，和前一句"it's still a monumental undertaking."的说话人对不上，指向真实的双人对话。
+
+3. **一句话被拆给两个人的直接证据（跑出来的，非推断）**：第 3 处 `⏹` 落在**一个短语中间**，真实原文（`payloads/c0001.txt` 原样摘录）：
+   ```
+   ...Like little, those little tiny things are things that make the huge difference in being able to kind of explore the solar system. Well, it all comes to down to ⏹ gravity, ⏸ and that's kind of. The ultimate differentiator between why everything we do in outer space is different from the way we do it on Earth. Totally, some of the stuff you touch on is—is very apt...
+   ```
+   `⏹` 出现在 `"...it all comes to down to"` 与 `"gravity, ..."` 之间——即一个人说到"这一切说到底还是……"话没说完，**下一个词"gravity"（重力）是由另一个说话人接上的**。这是本次素材里唯一一处说话人切换落在语义未完整处的例子（另外 2 处都在完整句尾），处理时按契约 HARD RULE 必须让句子在此处硬断，不能跨说话人拼接——最终体现为 polish 输出里段落 9（`"Well, it all comes to down to—"`）与段落 10（`"Gravity, and that's kind of the ultimate differentiator..."`）被强制分成两段。这条对主线程验证"是否存在一句话被两个说话人分别说完"的现象是直接、可复核的证据。
+
+4. **完成态 summary 里的独立佐证**：本任务最终 `task status` 返回的 `summary` 字段原文包含 **`"2 speakers"`**（见上第 1 节完整引用），而 M1 单人素材的最终 summary（已记录在本文件 M1 节）里**完全没有 "speakers" 这个子串**。两相对比，说明"speakers"计数只在多人素材里才会出现在这个汇总字段中，侧面印证引擎确实识别出了本素材是双人对话（不过这只是一个汇总计数，不是逐句的说话人标签）。
+
+5. **【推断·未验证】** M2 节已经记录过（非本次验证，引用自本文件既有内容）：最终 `subtitle list` 输出的每条记录带有 `"speaker":"Speaker 1","speakerId":"s1"` 字段。本次会话按任务要求全程未调用任何 `speakers` 子命令、也没有调用 `subtitle list` 去复核这一点，因此双人素材最终每条字幕的 `speakerId` 是否正确对应到 `s1`/`s2` 两个不同的人，**仍待主线程用 `subtitle list p2 --lang zh` 之类命令自行核实**——本次能确认的只是"引擎最终判定为 2 个说话人"，以及"polish 阶段的 `⏹` 边界被正确遵守（没有句子跨边界）"。
+
+### 5. 最终 status（真实完整输出）
+
+```json
+{
+  "claimedCount" : 0,
+  "configuredConcurrency" : 4,
+  "elapsedSec" : 2340,
+  "expiredClaimCount" : 0,
+  "flow" : "auto",
+  "lang" : "zh",
+  "pendingByKind" : {},
+  "pendingByWorkClass" : {},
+  "pendingCount" : 0,
+  "phase" : "Assembling translation",
+  "polishQuality" : {
+    "fallbackPageCount" : 0,
+    "fallbackSentenceCount" : 0,
+    "measuredPageCount" : 1,
+    "pageCount" : 1,
+    "recoveredPageCount" : 0,
+    "residualTermVariantCount" : 0,
+    "residualTermVariants" : [],
+    "retryCount" : 0,
+    "status" : "PASS"
+  },
+  "progress" : 100,
+  "projectId" : "p2",
+  "slowClaimCount" : 0,
+  "slowClaims" : [],
+  "stalledClaimCount" : 0,
+  "startedAt" : "2026-08-01T14:24:13Z",
+  "status" : "done",
+  "summary" : "571 words · 27 edits · polish PASS · retries 0 · recovered pages 0 · fallback pages/sentences 0/0 · residual terms 0 · 2 speakers · 33 lines → Chinese (Simplified)",
+  "taskId" : "t-msagprsx",
+  "unclaimedCount" : 0,
+  "waitingOn" : "terminal",
+  "workers" : []
+}
+```
+（注：本次最终 `task status` 输出里**没有** `concurrencyHint` 字段、也没有 `warnings` 字段——这两个字段只出现在任务较早期的中间态响应里，如实按最后一次真实调用的返回内容记录，不补全、不脑补。）
+
+命令：`baocut-cli --json task status t-msagprsx` → `"status" : "done"` ✅ 达成 Completion standard。

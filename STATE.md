@@ -3,7 +3,43 @@
 > **这是唯一的交接入口。** 任何人（或任何 agent）接手时，只需读本文件 → 找到第一个未完成节点
 > → 按"下一条命令"开工。完成一个节点就回来更新本文件并 commit。
 >
-> 最后更新：2026-08-01 21:40　更新人：Claude（主线程）
+> 最后更新：2026-08-01 23:10　更新人：Claude（主线程）
+
+## ★ M3 首轮结果（2026-08-01，双人素材 p2）—— 初步通过，但未完成全部验证
+
+素材：`hwhap_ep1_2speaker_clip.mp4`（NASA 双人访谈 180s）→ `projectId=p2`，ASR 用了 `qwen3-asr-1.7b`。
+BaoCut `auto ... --speakers 2` + agent task 循环（9 次 submit，零拒绝）已跑完，`status:done`。
+
+**说话人识别实测统计**（`subtitle list p2 --lang zh` 的 `speakerId` 字段，真实数据）：
+
+```
+groups 68 · speakers {s1: 37, s2: 31} · turns 4
+单组轮次（张冠李戴的典型特征）  0 / 4
+短于 1.5s 的轮次                0
+轮次时长 min/med/max            6.65 / 46.70 / 70.97 s
+语音 171.0s · 中文 841 字 · cps 4.92
+```
+
+**判读**：访谈类节目是"长问 + 长答"结构，识别结果就该是少数几个长轮次。
+实测 4 个轮次、无孤立单组、无超短轮次 —— **这正是干净结果的特征**。
+既往工作流里"张冠李戴"的典型征兆是说话人频繁来回跳（大量单组轮次、大量 <1.5s 轮次），
+**本次一个都没有**。
+
+**但这不等于验收通过，还差三件事**（下一位接手的人从这里继续）：
+
+1. **没做交叉验证**：`speakers reidentify p2 --count 2,3 --review` + `proposals diff` 还没跑，
+   没有第二个提案来对比分歧
+2. **没做视觉确认**：`speakers view p2 --rerun -o /tmp/p2_spk.png` 和
+   `frames p2 --at <轮次边界秒数>` 都没跑，4 个轮次边界应逐一看画面确认
+3. **已知存在跨说话人的句子**：子 agent 在 polish 原文里发现
+   `"...it all comes to down to ⏹ gravity, ..."` —— 说话人切换标记落在短语中间，
+   一句话被两个人接力说完。**这种句子配音时必须切开分给两个音色，否则一定错**。
+   `subtitle list` 的 group 粒度能否表达这种切分，**未验证**
+
+**只有 4 个轮次边界，人工确认成本极低（看 4 张画面帧），建议直接做完再往下走。**
+
+**另一个副产品**：p2 的 cps = 4.92，p1 是 5.44，两次实测都落在 4.9–5.5，
+`cps = 5.2` 这个中值站得住，可以定稿。
 
 ## 接手须知（30 秒读完）
 
@@ -35,13 +71,19 @@ yt-dlp --download-sections "*5:00-8:00" -f "bv*[ext=mp4]+ba[ext=m4a]/b" \
 备选双人素材（同系列，全是公有领域，时长 43–63 分钟，需自行截段）：
 `8A-6NoJbsFg` / `ZC4hpgNoumQ` / `mQbpPyV_kFw` / `QgLPHkebWU8`
 
-**下一条命令**：
+**下一条命令**（p2 已跑完，直接做 M3 剩下的三件事）：
 
 ```bash
 BC=/Applications/BaoCut.app/Contents/MacOS/baocut-cli
-$BC --json auto /Users/lx/Downloads/hwhap_ep1_2speaker_clip.mp4 --lang zh --source-lang en --speakers 2
-# 立即返回 {taskId, projectId}；然后用 task status 轮询（绝不要用 task wait，会阻塞超时）
+$BC speakers view p2 --rerun -o /tmp/p2_spk.png     # 波形+双条带+分歧标记，用 Read 看图
+$BC speakers reidentify p2 --count 2,3 --review     # 出提案，返回 proposalId
+$BC speakers proposals p2 <a> <b>                   # 逐 cue 对比分歧
+$BC speakers show p2 --cues | head -80              # 找 4 个轮次边界的秒数
+$BC frames p2 --at <边界秒数>                        # 抓画面帧，视觉确认谁在说
 ```
+
+已有两个跑通的 BaoCut 项目可直接复用，**不必重新转录**：
+`p1` 单人 NASA ScienceCasts 214s / **`p2` 双人 NASA 播客 180s（当前主力）**
 
 ## 节点表
 
@@ -50,7 +92,7 @@ $BC --json auto /Users/lx/Downloads/hwhap_ep1_2speaker_clip.mp4 --lang zh --sour
 | **M0** 环境与契约摸底 | baocut-cli 可用、模型就位、命令契约抄录 | ✅ 完成 | `BAOCUT_NOTES.md` M0 |
 | **M1** 单人视频跑通 BaoCut | 3.5 分钟视频走完 `auto` + task 循环到 done | ✅ 完成 | `BAOCUT_NOTES.md` M1（9 次 submit 全过） |
 | **M2** 结构化数据映射 | `subtitle list --json` 真实结构，定死 `groups.json` 字段 | ✅ 完成 | `BAOCUT_NOTES.md` M2 |
-| **M3** ★**说话人识别验证** | 双人素材上，说话人归属准确率过门；否则整个产品不成立 | ⬜ **下一个** | 见下方"M3 怎么做" |
+| **M3** ★**说话人识别验证** | 双人素材上，说话人归属准确率过门；否则整个产品不成立 | 🔵 **进行中·初步通过** | 见顶部"M3 首轮结果"；剩交叉验证/视觉确认/跨说话人句 |
 | **M4** 批量 TTS + 切割 | 整批合成再切开，音色不漂；切割精度实测 | ⬜ 未开始 | 词边界精度、音色一致性抽听 |
 | **M5** 时长适配 | `audio/zh_dub.wav` 与原视频等长，漂移 < 0.5s | ⬜ 未开始 | 漂移值 + 变速直方图 |
 | **M6** 封装 + QC + 样片 | `output/dubbed.mp4` 双音轨双字幕 + 3 段人耳样片 | ⬜ 未开始 | `ffprobe` + `qc_report.json` |
