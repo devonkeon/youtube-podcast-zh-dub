@@ -152,12 +152,35 @@ def parse_voice_spec(spec):
                           "ref_text": open(txt).read() if os.path.exists(txt) else ""})
         elif first.startswith("mimo:"):
             chain.append({"engine": "mimo", "ref": first[5:]})
+        elif first.startswith("es:"):
+            # es:user:<uuid>[:model] — EdgeSpeak local clone (default omnivoice)
+            rest = first[3:]
+            vid, _, mdl = rest.rpartition(":") if rest.count(":") > 1 else (rest, "", "")
+            chain.append({"engine": "espeak",
+                          "voice": vid if mdl else rest,
+                          "model": mdl or "omnivoice"})
         elif first:
             chain.append({"engine": "edge", "voice": first})
     for p in parts[1:]:
         if p:
             chain.append({"engine": "edge", "voice": p})
     return chain
+
+
+ESPEAK_CLI = "/Applications/EdgeSpeak.app/Contents/Resources/edgespeak-cli"
+
+
+def synth_espeak(text, voice_id, out, model="omnivoice", timeout=300):
+    """EdgeSpeak local on-device TTS (no key, no quota; ~3.5x RTF, serial)."""
+    p = subprocess.run([ESPEAK_CLI, "speech", text, "-o", out,
+                        "--model", model, "--voice", voice_id,
+                        "--language", "zh-CN"],
+                       capture_output=True, text=True, timeout=timeout)
+    if p.returncode != 0 or not os.path.exists(out):
+        raise RuntimeError(f"edgespeak: {(p.stderr or p.stdout)[:200]}")
+
+
+_espeak_lock = None  # asyncio.Lock created lazily inside the event loop
 
 
 async def synth_one(sem, unit, chain, outdir, rate=None, retries=3, broken=None,
@@ -193,6 +216,14 @@ async def synth_one(sem, unit, chain, outdir, rate=None, retries=3, broken=None,
                                                 eng["ref_text"], out)
                     elif name == "mimo":
                         await asyncio.to_thread(synth_mimo, text, eng["ref"], out)
+                    elif name == "espeak":
+                        global _espeak_lock
+                        if _espeak_lock is None:
+                            _espeak_lock = asyncio.Lock()
+                        async with _espeak_lock:  # local GPU: serialize
+                            await asyncio.to_thread(synth_espeak, text,
+                                                    eng["voice"], out,
+                                                    eng.get("model", "omnivoice"))
                     dur = ffprobe_dur(out)
                     if dur > limit:
                         last = f"{name} dur-guard {dur:.1f}s>{limit:.1f}s"

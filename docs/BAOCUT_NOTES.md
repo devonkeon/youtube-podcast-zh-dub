@@ -786,3 +786,22 @@ vk-keymasks         = gemini:Personal（有 key）+ custom-c4d35ecb:Personal（�
   但换来的是**原说话人的音色**。取舍留给人耳验收：
   `output/samples/p2_clone_turn1-2.mp4` / `p2_clone_cross-speaker.mp4`
 - 待定【推断·未验证】：克隆音色的"像不像"只有人耳能判；若像，>1.5x 那 11 个 unit 可以走 LLM 重译缩短来救
+
+## EdgeSpeak 本地 TTS 接入（2026-08-02，Kimi）—— 无 key、无配额、离线兜底
+
+- 本机 `/Applications/EdgeSpeak.app`，CLI 在 `Contents/Resources/edgespeak-cli`；
+  gateway `http://127.0.0.1:1117/v1`，lifetime 授权 + full offline。
+- 可用本地 TTS 模型：`omnivoice`（ready，默认）/ `voxcpm2`（需下载）/
+  `qwen3-tts-0.6b-base` / `qwen3-tts-1.7b-voice-design`（需 instructions + builtin:auto）。
+- **克隆音色入库**：`edgespeak-cli voices add ref.wav --ref-text "逐字稿" --name X --language en-US --consent`，
+  约 1 分钟 preparing 后 ready，得到 `user:<uuid>`。已为 p2 建：
+  `hwhap-dan-huot=user:41b82cf4…c4d8` / `hwhap-gary-jordan=user:80aa4902…1b1e`。
+- **合成**：`edgespeak-cli speech "文本" -o out.wav --model omnivoice --voice user:<uuid> --language zh-CN`。
+  实测 33 字 → 6.56s 音频，推理 23s（RTF≈3.5，用户说的"比 API 慢"属实）；
+  自然语速 5.03 字/s（贴合 5.2 预算，无边缘填充静音）；输出 24kHz wav。
+- **build_dub.py 引擎链新增 `es:`**：`--voice s1=mimo:/a.wav+es:user:<uuid>,zh-CN-YunjianNeural`。
+  本地 GPU 推理已强制串行（asyncio.Lock），其余引擎照常并发。
+- 定位：**离线/无配额兜底**（链尾在 edge-tts 前），不建议做长片主引擎（3 小时播客按 RTF 3.5 串行要 ~10 小时）。
+  长片主引擎优先级：mimo（1.9s/句，快但有配额）→ moss（~40s/句，无限用）→ espeak（本地兜底）→ edge-tts（通用音色）。
+- 副产品：EdgeSpeak 还有本地 transcribe/align/segment/LLM generate（`qwen3.5-4b`），
+  可做大模型 API 全挂时的 worker-bot 兜底【推断·未验证】。
