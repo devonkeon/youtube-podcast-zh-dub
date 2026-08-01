@@ -168,10 +168,27 @@ def parse_voice_spec(spec):
 
 
 ESPEAK_CLI = "/Applications/EdgeSpeak.app/Contents/Resources/edgespeak-cli"
+ESPEAK_URL = os.environ.get("EDGESPEAK_BASE_URL", "http://127.0.0.1:1117/v1")
 
 
 def synth_espeak(text, voice_id, out, model="omnivoice", timeout=300):
-    """EdgeSpeak local on-device TTS (no key, no quota; ~3.5x RTF, serial)."""
+    """EdgeSpeak local on-device TTS via the gateway HTTP API (no quota; ~3.5x RTF).
+
+    NOTE: the gateway schema takes {model, input, voice, response_format:"wav",
+    speed, seed, ...} — it REJECTS the `language` field (400 bad_request) and
+    response_format is effectively required. CLI subprocess is the fallback.
+    """
+    key = os.environ.get("EDGESPEAK_API_KEY")
+    if key:
+        obj = {"model": model, "input": text, "voice": voice_id,
+               "response_format": "wav"}
+        data, ct = _http_json(ESPEAK_URL.rstrip("/") + "/audio/speech", obj,
+                              {"Authorization": f"Bearer {key}",
+                               "Content-Type": "application/json"}, timeout)
+        if len(data) < 1000:
+            raise RuntimeError(f"edgespeak audio too small ({len(data)}B)")
+        open(out, "wb").write(data)
+        return
     p = subprocess.run([ESPEAK_CLI, "speech", text, "-o", out,
                         "--model", model, "--voice", voice_id,
                         "--language", "zh-CN"],

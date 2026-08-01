@@ -799,6 +799,11 @@ vk-keymasks         = gemini:Personal（有 key）+ custom-c4d35ecb:Personal（�
 - **合成**：`edgespeak-cli speech "文本" -o out.wav --model omnivoice --voice user:<uuid> --language zh-CN`。
   实测 33 字 → 6.56s 音频，推理 23s（RTF≈3.5，用户说的"比 API 慢"属实）；
   自然语速 5.03 字/s（贴合 5.2 预算，无边缘填充静音）；输出 24kHz wav。
+- **gateway HTTP 直连（推荐）**：`POST $EDGESPEAK_BASE_URL/audio/speech`
+  （默认 `http://127.0.0.1:1117/v1`，Bearer key 用本机 gateway key）。
+  body `{model, input, voice, response_format:"wav"[, speed, seed]}`——
+  ⚠️ 实测：`response_format:"wav"` 必须带；**`language` 字段会 400**（schema 不收）。
+  chat/completions 当前报 "no chat provider configured"（本地 LLM 未加载，worker-bot 兜底暂不可用）。
 - **build_dub.py 引擎链新增 `es:`**：`--voice s1=mimo:/a.wav+es:user:<uuid>,zh-CN-YunjianNeural`。
   本地 GPU 推理已强制串行（asyncio.Lock），其余引擎照常并发。
 - 定位：**离线/无配额兜底**（链尾在 edge-tts 前），不建议做长片主引擎（3 小时播客按 RTF 3.5 串行要 ~10 小时）。
