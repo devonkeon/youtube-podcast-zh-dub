@@ -68,6 +68,26 @@ head -c 2000 "/Users/lx/Library/Application Support/BaoCut/projects/p1/agent/t-m
    （`model list` 里有一行 `cline-pass/deepseek-v4-flash cloud · connected`）——
    若可以，M6 长播客的时间成本会大幅下降，**值得优先调查**
 
+## 架构修正 v2（2026-08-01，用户 review 后）
+
+| # | 修正 | 依据 |
+|---|---|---|
+| 1 | **TTS 必须整批合成后切开，禁止逐句合成** | 逐句会造成克隆音色漂移 + 句间韵律断裂；用户既往播客项目已反复踩到。沿用既有 multi-TTS 批量方案 |
+| 2 | **新增「说话人确认门」，默认单一音色** | 用户既有工作流「张冠李戴」反复发生；配错音色比不分音色更糟。多音色需过分歧确认门，分歧 > 5% 未确认则自动降级 |
+| 3 | **翻译改由 BaoCut GUI 用用户已配置的 API 自己跑**，CLI 只读数据 | `auto --help` 明确 CLI 自己不调 LLM，必须外部 agent 驱动；GUI 有用户配好的翻译 API。可省掉 agent 循环的巨大时间成本 |
+| 4 | 撤回"translate 阶段拿不到时长"的说法 | 时间轴一直在 `subtitle list` 的 `start`/`end` 里，随时可查。原表述把一个中间步骤的局部现象说成了系统性问题 |
+
+## ⚠️ 头号风险：多人节目的说话人识别
+
+**用户判断：这个问题解决不好，工具就没有做的意义。** 认同。
+
+- **当前测试素材 p1 是单人旁白（`speakers:1`），完全没有验证过这个问题**
+- **下一个测试必须换成真实双人/多人播客**，先过说话人这一关，再谈其他
+- BaoCut 的工具链比既有工作流强得多，可用来做置信度分级（详见 SPEC 阶段 A-bis）：
+  `reidentify --count 2,3 --review` 出多提案 → `proposals diff` 找分歧 →
+  `view --rerun` 出波形分歧标记 PNG → `frames --at <t>` 视觉确认 → `assign --cue` 定点改
+- 思路：**一致的段落直接用，分歧的段落逐一确认，确认不了的退回单一音色** —— 不猜
+
 ## 已知质量问题
 
 - **repunct 阶段会在紧凑词组中间插逗号**（实测："night, sky" / "closest, approach" /
