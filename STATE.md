@@ -9,6 +9,8 @@
   本地 agent grok/kimi/hermes/codex 均可用
 - **代码量为 0**。没有跑过任何真实视频。
 
+- 仓库已建并推送：<https://github.com/devonkeon/youtube-podcast-zh-dub>（main，首个 commit `bcb5a7c`）
+
 ## 下一步（严格按顺序）
 
 1. 复制密钥到本目录 `.env`（来源见 RESEARCH.md 第 3 节表格）

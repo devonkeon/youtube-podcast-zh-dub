@@ -43,18 +43,14 @@ Python 3.11 · ffmpeg · yt-dlp · faster-whisper / AssemblyAI · edge-tts（可
 技术跑通不算完成。必须产出 3 段人耳验收片段（全片 25%/50%/75% 处各 15 秒），
 中文自然、跟得上画面、不赶字，才算完成。详见 SPEC 第 4 节。
 
-## 开始执行
+## 仓库
 
-建仓（本会话的沙箱无权在本机执行 git/gh 写操作，请手工跑一次，`gh` 已登录 `devonkeon`）：
+<https://github.com/devonkeon/youtube-podcast-zh-dub>
+
+## 开始执行
 
 ```bash
 cd /Users/lx/Downloads/soft/tts/youtube-podcast-zh-dub
-git init && git add -A && git commit -m "spec: research, contract and PDCA plan"
-gh repo create youtube-podcast-zh-dub --public --source=. --remote=origin --push \
-  --description "把 YouTube 英文播客变成中文口播版：中文配音默认音轨 + 英文原声可切换 + 中英双语字幕"
-```
-
-然后交给编码 agent：
 
 ```bash
 kimi "读 SPEC.md 和 PLAN.md，执行 Brief 1，完成后写 EVIDENCE_1.md 并 git commit"
