@@ -3,7 +3,7 @@
 > **这是唯一的交接入口。** 任何人（或任何 agent）接手时，只需读本文件 → 找到第一个未完成节点
 > → 按"下一条命令"开工。完成一个节点就回来更新本文件并 commit。
 >
-> 最后更新：2026-08-02　更新人：Kimi（接手，完成 M3 全部验证）
+> 最后更新：2026-08-02 00:40　更新人：Kimi（M3 验证 + M4–M6 配音层 + LLM worker-bot）
 
 ## ★ M3 最终结果（2026-08-02，双人素材 p2）—— ✅ 过门，允许多音色
 
@@ -66,7 +66,7 @@ groups 68 · speakers {s1: 37, s2: 31} · turns 4
 
 ## 当前位置
 
-**M0 / M1 / M2 / M3 已完成。下一个是 M4（批量 TTS + 切割）。** 头号风险（说话人识别）已解除：p2 上三方证据一致、0% 分歧，允许多音色。
+**M0–M6 已完成（M6 待用户人耳验收样片）。M7（端到端长播客）进行中。** 头号风险（说话人识别）已解除；时间成本风险由 LLM worker-bot 解除（p4 探针：25s 素材 LLM 阶段约 3 分钟全自动，同类规模人工循环要 37 分钟）。
 
 **测试素材已就位 ✅**（2026-08-01 22:13 实测）：
 
@@ -87,19 +87,19 @@ yt-dlp --download-sections "*5:00-8:00" -f "bv*[ext=mp4]+ba[ext=m4a]/b" \
 备选双人素材（同系列，全是公有领域，时长 43–63 分钟，需自行截段）：
 `8A-6NoJbsFg` / `ZC4hpgNoumQ` / `mQbpPyV_kFw` / `QgLPHkebWU8`
 
-**下一条命令**（M3 已闭环，进入 M4 批量 TTS + 切割）：
+**下一条命令**（M7：20 分钟端到端，流程已自动化）：
 
 ```bash
-# M4 开工前先做两件调查（都是 STATE.md"未验证假设"里挂着的）：
-# 1. 病态组兜底：dur<0.7s 且 gap<0.2s 的组（p1 实测有 g28.7 cps=32.3）合并方案
-# 2. edge-tts 并发限流阈值（先按 4 试）
-# 然后用 p2 做首个双音色批量合成实验：
-#   - 68 组按 speakerId 分两音色（s1=Dan Huot / s2=Gary Jordan）
-#   - 整批合成 → 按组切开（架构修正 v2 第 1 条：禁止逐句合成）
-#   - 实测：词边界切割精度 + 音色一致性抽听
+# 1. 下载长素材 → 2. auto 发起 → 3. worker-bot 驱动 LLM 阶段（无需人工）
+set -a; source ~/Downloads/soft/podcast-workbench/.env; set +a   # 提供 OPENCODE_GO_API_KEY
+BC=/Applications/BaoCut.app/Contents/MacOS/baocut-cli
+$BC --json auto <media> --lang zh --source-lang en                # 返回 taskId/projectId
+python3 worker/llm_worker.py <taskId> --worker llm-bot --log /tmp/bot.jsonl
+# 4. 说话人确认门（M3 流程）→ 5. 配音 + 封装
+~/.browser-use-env/bin/python dub/build_dub.py <pid> \
+    --voice s1=zh-CN-YunjianNeural --voice s2=zh-CN-YunxiNeural --conc 6
+# 6. mux + QC：见 docs/BAOCUT_NOTES.md M4–M6 第 4 节
 ```
-
-M3 验证用的命令已全部跑完并存档（`docs/BAOCUT_NOTES.md` ## M3），无需重跑。
 
 已有两个跑通的 BaoCut 项目可直接复用，**不必重新转录**：
 `p1` 单人 NASA ScienceCasts 214s / **`p2` 双人 NASA 播客 180s（当前主力）**
@@ -112,10 +112,10 @@ M3 验证用的命令已全部跑完并存档（`docs/BAOCUT_NOTES.md` ## M3）�
 | **M1** 单人视频跑通 BaoCut | 3.5 分钟视频走完 `auto` + task 循环到 done | ✅ 完成 | `BAOCUT_NOTES.md` M1（9 次 submit 全过） |
 | **M2** 结构化数据映射 | `subtitle list --json` 真实结构，定死 `groups.json` 字段 | ✅ 完成 | `BAOCUT_NOTES.md` M2 |
 | **M3** ★**说话人识别验证** | 双人素材上，说话人归属准确率过门；否则整个产品不成立 | ✅ **完成·过门（多音色）** | `BAOCUT_NOTES.md` ## M3：双提案 diff 0/101 cue、⏹ 标记逐边界对齐、人名字幕锚点 |
-| **M4** 批量 TTS + 切割 | 整批合成再切开，音色不漂；切割精度实测 | 🔵 **下一个** | 词边界精度、音色一致性抽听 |
-| **M5** 时长适配 | `audio/zh_dub.wav` 与原视频等长，漂移 < 0.5s | ⬜ 未开始 | 漂移值 + 变速直方图 |
-| **M6** 封装 + QC + 样片 | `output/dubbed.mp4` 双音轨双字幕 + 3 段人耳样片 | ⬜ 未开始 | `ffprobe` + `qc_report.json` |
-| **M7** 端到端长播客 | 20 分钟以上真实播客跑通并人耳合格 | ⬜ 未开始 | 耗时表 + 样片 |
+| **M4** 批量 TTS + 切割 | 整批合成再切开，音色不漂；切割精度实测 | ✅ 完成（方案实测后改为逐组合成，见架构修正 v3） | `BAOCUT_NOTES.md` M4–M6：conc8 零失败、变速直方图 51/66 零变速 |
+| **M5** 时长适配 | `audio/zh_dub.wav` 与原视频等长，漂移 < 0.5s | ✅ 完成 | 结构性零漂移；rate+15%+去静音后仅 1 单元 >1.5x |
+| **M6** 封装 + QC + 样片 | `output/dubbed.mp4` 双音轨双字幕 + 3 段人耳样片 | ✅ 完成（待人耳验收） | `output/p2_dubbed.mp4` + `qc_report.json` + 3 样片 |
+| **M7** 端到端长播客 | 20 分钟以上真实播客跑通并人耳合格 | 🔵 进行中 | LLM worker-bot 已验证（p4 探针 3 分钟）；20 分钟端到端进行中 |
 
 > 节点顺序在 2026-08-01 用户 review 后**重排过**：原来的"配音字数约束"降级为 M5 的一部分，
 > **说话人识别提到最前面**。理由：用户既有工作流里"张冠李戴"反复发生，

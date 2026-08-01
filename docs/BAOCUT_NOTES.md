@@ -663,3 +663,51 @@ vk-keymasks         = gemini:Personal（有 key）+ custom-c4d35ecb:Personal（�
 - 留待验证【推断·未验证】：GUI 对 CLI 创建的项目点翻译是否同样走 app 自跑（p101 大概率是 GUI 创建；
   项目存储共享，预计可行，下次开 GUI 时点一下 p3 即可终验）。
 - agent 循环保留为兜底（无 GUI 环境 / 需要自定义 instructions 时）。
+
+## M4–M6 · 配音层实现与实测（已执行 ✅ 2026-08-02，Kimi）
+
+### 1. LLM worker-bot（`worker/llm_worker.py`）—— agent 循环自动化
+
+- 用 OpenAI 兼容 API（opencode 网关的 deepseek-v4-flash）驱动 BaoCut task 队列：
+  `claim → 读 contract+payload → LLM → submit`，被 lint 拒绝时把 problems 拼回提示重试。
+- **探针实测（p4，25s 素材）**：LLM 阶段（polish+translate+align 共 5 次 submit）约 3 分钟跑完到
+  `status:done`；对照同规模人工 agent 循环（p2，180s，9 次 submit）37 分钟。
+  期间 2 次 align 答案被 lint 拒绝（"译文超 20 字上限"、"unknown cut id"），bot 自动带反馈重试后通过。
+- 并行化：align 阶段 BaoCut 本身支持 4–8 并发窗口，可同时跑多个 worker 进程（`--worker` 名不同即可），
+  长播客时间 ≈ 线性 ÷ 并发数。
+- **三个坑（全部实测）**：
+  1. opencode 网关在 Cloudflare 后，urllib 默认 UA 被 1010 拦截，必须带浏览器 UA；
+  2. deepseek-v4-flash 默认开启推理，复杂 contract（align）会把全部 completion 预算烧在
+     `reasoning_content` 上（实测 16000 tokens 烧光、content 为空）——网关支持
+     `"thinking":{"type":"disabled"}` 关闭，关掉后 align 单次 3 秒；
+  3. `task claim` 对同一 worker 重复 claim 返回 `already-claimed`（不含 payload 路径），
+     bot 需 `release` 后重 claim 自愈。
+- key 现状：`~/.hermes/.env` 的 key 余额不足且 flash 需区域 opt-in；
+  可用的是 `~/Downloads/soft/podcast-workbench/.env` 里的 `OPENCODE_GO_API_KEY`（sk-GDd…），
+  deepseek-v4-flash / v4-pro / qwen3.6-plus / glm-5.1 均实测可用。
+
+### 2. edge-tts 实测（M4 假设全部有了数据）
+
+- **并发阈值**：1/4/8 三档共 32 次请求零失败，单次延迟恒 ~3.5s，并发 8 无 403。
+  生产取 6–8（与调研结论一致），配合逐条落盘 + 指数退避重试 + 断点续跑。
+- **自然语速只有 3.90 字/秒**（zh-CN-Yunxi/Yunjian 实测），远低于 cps 预算 5.2 ——
+  直接用自然语速会有 36/66 个 unit 超槽。对策：`rate=+15%`（合成端）+
+  **去静音**（edge-tts 每条首尾垫静音，实测 -45dB silenceremove 每条省约 1.15s，短句收益最大）。
+- **病态组兜底**：`dur<0.7s 且 gap<0.2s` 的组并入下一个同说话人组（p2 有 2 个），合成/计时按并后单元。
+- **最终时长适配成绩（p2，66 单元）**：51 个零变速、11 个 1.0–1.25x、3 个 1.25–1.5x、
+  **仅 1 个 >1.5x（max 1.675）**；音轨时长 = 视频时长（结构性零漂移，局部溢出由
+  gap_spill=0.6 吸收，超出部分 atempo 强制贴合）。
+
+### 3. 架构修正 v3（实测驱动）
+
+| # | 修正 | 依据 |
+|---|---|---|
+| 1 | **「整批合成后切开」不适用于 edge-tts**：改为逐组合成 + 断点续跑 | 「整批防漂移」针对克隆音色 TTS；edge-tts 是确定性云音色无漂移问题，且业界共识（VideoLingo/Edge-TTS-Subtitle-Dubbing）就是逐句合成+线程池。长片整批一旦中途失败前功尽弃，逐组可 resume |
+| 2 | **原视频不在 BaoCut 项目目录**（假设 2 解决） | p2 目录实测只有 `audio16k.pcm`/封面/波形，无源媒体。mux 底片 = 原始下载文件（URL 源在 `--save-dir`，默认 ~/Downloads） |
+| 3 | 时长适配三级瀑布落地为：rate+15% → 去静音 → gap_spill 0.6 → atempo（上限实测 1.675） | 见上「最终时长适配成绩」；超过 1.5x 的极少数 unit 标记人工复查，后续可加「LLM 重译缩短」层（调研结论 #3） |
+
+### 4. M6 封装与 QC（p2）
+
+- `output/p2_dubbed.mp4`：h264 + aac 中文配音（默认轨）+ aac 英文原声 + mov_text 中/英双字幕，180.033s。
+- `output/qc_report.json`：时长/流/音色表/变速直方图/四段音量检查（-23~-25dB，无死区）。
+- 3 段人耳样片在 `output/samples/`：轮次切换 ×2 + 跨说话人接力句 ×1。**待用户醒后人耳验收。**
