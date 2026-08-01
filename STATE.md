@@ -16,14 +16,15 @@
 
 **M0 / M1 / M2 已完成。下一个是 M3（说话人识别验证）——这是头号风险，优先级高于一切功能。**
 
-**测试素材（我已开始下载，接手时先确认在不在）**：
+**测试素材已就位 ✅**（2026-08-01 22:13 实测）：
 
-```bash
-ls -la /Users/lx/Downloads/hwhap_ep1_2speaker_clip.mp4
-cat /tmp/ytdl.log        # 下载日志；没下完就重跑下面这条
+```
+/Users/lx/Downloads/hwhap_ep1_2speaker_clip.mp4
+13,271,779 bytes · 180.03s · h264 + aac
+NASA《Houston We Have a Podcast》Ep.1 第 5–8 分钟 · 公有领域 · 双人访谈
 ```
 
-没有的话重下（NASA 官方播客《Houston We Have a Podcast》第 1 集，**公有领域，双人访谈**，取第 5–8 分钟）：
+文件丢了就重下：
 
 ```bash
 yt-dlp --download-sections "*5:00-8:00" -f "bv*[ext=mp4]+ba[ext=m4a]/b" \
