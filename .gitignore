@@ -1,7 +1,2 @@
-.env
-.venv/
-runs/
+work/
 __pycache__/
-*.pyc
-.DS_Store
-*.egg-info/
