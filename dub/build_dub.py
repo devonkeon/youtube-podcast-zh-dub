@@ -242,7 +242,9 @@ async def synth_one(sem, unit, chain, outdir, rate=None, retries=3, broken=None,
                                                     eng["voice"], out,
                                                     eng.get("model", "omnivoice"))
                     dur = ffprobe_dur(out)
-                    if dur > limit:
+                    # duration guard targets clone-engine hallucinations (long
+                    # silence); edge-tts is deterministic — skip it there
+                    if name != "edge" and dur > limit:
                         last = f"{name} dur-guard {dur:.1f}s>{limit:.1f}s"
                         os.unlink(out)
                         if attempt == 0:
@@ -355,22 +357,52 @@ def main():
         wavs.append(wav)
 
     # assemble on the absolute timeline (adelay + amix, no volume normalization)
-    with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as f:
-        graph = f
-        for i, u in enumerate(units):
-            ms = int(round(u["start"] * 1000))
-            f.write(f"[{i}:a]adelay={ms}|{ms}[d{i}];\n")
-        mix = "".join(f"[d{i}]" for i in range(len(units)))
-        f.write(f"{mix}amix=inputs={len(units)}:normalize=0,"
-                f"apad,atrim=0:{total:.3f}[out]\n")
+    # NOTE: ffmpeg opens one fd per input — 1000+ units blow past the 256 fd
+    # soft limit on macOS. Mix in chunks of 50, then mix the partials.
+    def mix_chunk(idx_paths, out_path, trim=None):
+        with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as f:
+            graph = f
+            for j, (i, u) in enumerate(idx_paths):
+                ms = int(round(u["start"] * 1000))
+                f.write(f"[{j}:a]adelay={ms}|{ms}[d{j}];\n")
+            mix = "".join(f"[d{j}]" for j in range(len(idx_paths)))
+            tail = f",apad,atrim=0:{trim:.3f}" if trim else ""
+            f.write(f"{mix}amix=inputs={len(idx_paths)}:normalize=0{tail}[out]\n")
+        cmd = [FFMPEG, "-v", "error", "-y"]
+        for _, u in idx_paths:
+            cmd += ["-i", u["wav"]]
+        cmd += ["-filter_complex_script", graph.name, "-map", "[out]",
+                "-ac", "1", "-ar", str(SR), out_path]
+        subprocess.run(cmd, check=True)
+        os.unlink(graph.name)
+
+    for u, w in zip(units, wavs):
+        u["wav"] = w
+    CHUNK = 50
     dub_wav = os.path.join(outdir, "zh_dub.wav")
-    cmd = [FFMPEG, "-v", "error", "-y"]
-    for w in wavs:
-        cmd += ["-i", w]
-    cmd += ["-filter_complex_script", graph.name, "-map", "[out]",
-            "-ac", "1", "-ar", str(SR), dub_wav]
-    subprocess.run(cmd, check=True)
-    os.unlink(graph.name)
+    if len(units) <= CHUNK:
+        mix_chunk(list(enumerate(units)), dub_wav, trim=total)
+    else:
+        parts = []
+        for c in range(0, len(units), CHUNK):
+            part = os.path.join(outdir, f"_mix{c // CHUNK:03d}.wav")
+            mix_chunk(list(enumerate(units[c:c + CHUNK])), part)
+            parts.append(part)
+        # partials already sit on the absolute timeline; sum them with adelay=0
+        with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as f:
+            graph = f
+            mix = "".join(f"[{j}:a]" for j in range(len(parts)))
+            f.write(f"{mix}amix=inputs={len(parts)}:normalize=0,"
+                    f"apad,atrim=0:{total:.3f}[out]\n")
+        cmd = [FFMPEG, "-v", "error", "-y"]
+        for p in parts:
+            cmd += ["-i", p]
+        cmd += ["-filter_complex_script", graph.name, "-map", "[out]",
+                "-ac", "1", "-ar", str(SR), dub_wav]
+        subprocess.run(cmd, check=True)
+        os.unlink(graph.name)
+        for p in parts:
+            os.unlink(p)
 
     stretches = [u["stretch"] for u in units]
     from collections import Counter

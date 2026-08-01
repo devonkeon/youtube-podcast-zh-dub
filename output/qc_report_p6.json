@@ -1,0 +1,62 @@
+{
+ "project": "p6",
+ "date": "2026-08-02",
+ "milestone": "M7+ 端到端 62 分钟真实播客（用户指定 URL）",
+ "source": "https://youtu.be/8M33L6zWmew (Bloomberg Odd Lots, 3756s, 4人; 版权素材仅本机测试)",
+ "output": "output/p6_dubbed.mp4",
+ "pipeline_timing": {
+  "download+transcribe+speakers": "652s（62分钟素材，0.17×实时）",
+  "llm_stages": "约25分钟（2 worker × 2 轮, 158+ calls: analysis/polish/repunct/translate/align; align 占大头）",
+  "llm_cost": "见 bot 日志（deepseek-v4-flash, inTok 约 70 万级）",
+  "tts": "约13分钟（1172 单元, edge-tts conc 6, rate+15%）",
+  "total": "约52分钟 / 62分钟素材（0.84×实时）"
+ },
+ "speaker_gate": {
+  "speakers": {
+   "s1": "Yeganeh Torbati (嘉宾, NYT 伊朗记者)",
+   "s2": "Joe Weisenthal (主持)",
+   "s3": "Tracy Alloway (主持)",
+   "s4": "Bozorgmehr Sharafedin (嘉宾, Iran International)"
+  },
+  "verdict": "过门（四音色）",
+  "evidence": "count=4/5 双提案与基线 0/2156 cue 差异, 仅 5 ambiguous (0.23%); count=5 也只找到 4 个声纹; 人名自开场白/嘉宾介绍原文确认"
+ },
+ "dub": {
+  "units": 1172,
+  "merged_pathological": 33,
+  "stretch_hist": {
+   "1.0 (no stretch)": 942,
+   "1.0-1.25": 109,
+   "1.25-1.5": 48,
+   ">1.5": 73,
+   "max": 10.272
+  },
+  "note": "cps 4.36（财经对谈偏稀疏），80% 单元零变速；73 个 >1.5x 集中在短促插话"
+ },
+ "volume_check": {
+  "0-45s": -25.6,
+  "180-240s": -24.7,
+  "1200-1260s": -26.4,
+  "2400-2460s": -21.8,
+  "3600-3650s": -23.8,
+  "note": "全片覆盖无死区"
+ },
+ "samples": [
+  "output/samples/p6_intro-2hosts.mp4",
+  "output/samples/p6_guest-intro.mp4",
+  "output/samples/p6_bozorgmehr.mp4"
+ ],
+ "bugs_fixed_this_run": [
+  "时长护栏误杀 edge-tts 短句（1.8s>1.5s 下限）→ 护栏只作用于克隆引擎",
+  "ffmpeg 输入超 macOS 256 fd 软限制（1205 路 wav）→ 分块 50 路预混再总混"
+ ],
+ "known_issues": [
+  "73 个 unit 变速 >1.5x（6.2%），max 10.3x 一个（超短插话组），待人耳判断",
+  "LLM 阶段 worker max_rounds=200 跑满退出过两次，长任务要 --max-rounds 400+ 或多轮补射",
+  "polish WARN: fallback sentences 1, residual terms 6（audit 详情待查）"
+ ],
+ "pending_human": [
+  "人耳验收 3 段样片（双主持/嘉宾介绍/Bozorgmehr 段）",
+  "4 音色区分度"
+ ]
+}

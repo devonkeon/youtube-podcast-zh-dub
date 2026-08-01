@@ -810,3 +810,29 @@ vk-keymasks         = gemini:Personal（有 key）+ custom-c4d35ecb:Personal（�
   长片主引擎优先级：mimo（1.9s/句，快但有配额）→ moss（~40s/句，无限用）→ espeak（本地兜底）→ edge-tts（通用音色）。
 - 副产品：EdgeSpeak 还有本地 transcribe/align/segment/LLM generate（`qwen3.5-4b`），
   可做大模型 API 全挂时的 worker-bot 兜底【推断·未验证】。
+
+## M7+ · 62 分钟 4 人播客端到端（p6，2026-08-02，用户指定 URL）
+
+素材：Bloomberg Odd Lots《How the Iranian Economy Actually Works》3756s（版权素材，仅本机测试）。
+产物：`output/p6_dubbed.mp4`（四音色中配 + 原声 + 中英字幕）+ `output/qc_report_p6.json` + 3 样片。
+
+### 耗时表（真实数据）
+
+| 阶段 | 耗时 | 说明 |
+|---|---|---|
+| 下载+转录+说话人 | 652s | 62 分钟素材，0.17× 实时 |
+| LLM 阶段 | 约 25 分钟 | 2 worker，158+ calls（align 占大头）；worker 跑满 max_rounds 退出 2 次，补射收尾 |
+| TTS | 约 13 分钟 | 1172 单元，edge-tts conc 6 |
+| **合计** | **约 52 分钟 / 62 分钟素材（0.84× 实时）** | 比实时还快 |
+
+### 说话人确认门（4 人场景）
+
+- 基线 4 人；`reidentify --count 4,5 --review`：双提案与基线 **0/2156 cue 差异**、5 ambiguous（0.23%），
+  count=5 也只找到 4 个声纹 → 过门，四音色。
+- 人名全部从原文确认：主持 Joe Weisenthal / Tracy Alloway（自我介绍），
+  嘉宾 Yeganeh Torbati（NYT）/ Bozorgmehr Sharafedin（Iran International）（开场介绍 + 致谢顺序）。
+
+### 本次修掉的两个真实 bug
+
+1. **时长护栏误杀 edge-tts 短句**（edge 对 4 字句也要 1.8s，超 1.5s 下限直接全灭）→ 护栏只作用于克隆引擎。
+2. **ffmpeg 输入数超 macOS 256 fd 软限制**（1205 路 wav 输入）→ 分块 50 路预混再总混。
