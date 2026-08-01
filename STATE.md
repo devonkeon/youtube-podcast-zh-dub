@@ -3,38 +3,84 @@
 > **这是唯一的交接入口。** 任何人（或任何 agent）接手时，只需读本文件 → 找到第一个未完成节点
 > → 按"下一条命令"开工。完成一个节点就回来更新本文件并 commit。
 >
-> 最后更新：2026-08-01 21:05　更新人：Claude（主线程）
+> 最后更新：2026-08-01 21:40　更新人：Claude（主线程）
+
+## 接手须知（30 秒读完）
+
+- 项目定位：**只做配音层**。下载/转写/断句/翻译/字幕全部由 BaoCut 0.8.3 完成，我们做 TTS 和封装。
+- 目前**代码 0 行**，前三个节点是调研和实测，结论都在 `docs/BAOCUT_NOTES.md`（贴的都是真实终端输出）。
+- **别急着写代码。** 下一个节点 M3 是产品生死线，没过之前写代码是浪费。
+- 铁律：凡是跑出来的贴原文，凡是推断的标 `【推断·未验证】`，没有证据不许报完成。
 
 ## 当前位置
 
-**M0 / M1 / M2 已完成。下一个是 M3。**
+**M0 / M1 / M2 已完成。下一个是 M3（说话人识别验证）——这是头号风险，优先级高于一切功能。**
 
-已有一个跑通的 BaoCut 项目可直接复用，**不必重新转录**：
-`projectId=p1`（NASA ScienceCasts，214s，64 个中文 group，已 done）
+**测试素材（我已开始下载，接手时先确认在不在）**：
+
+```bash
+ls -la /Users/lx/Downloads/hwhap_ep1_2speaker_clip.mp4
+cat /tmp/ytdl.log        # 下载日志；没下完就重跑下面这条
+```
+
+没有的话重下（NASA 官方播客《Houston We Have a Podcast》第 1 集，**公有领域，双人访谈**，取第 5–8 分钟）：
+
+```bash
+yt-dlp --download-sections "*5:00-8:00" -f "bv*[ext=mp4]+ba[ext=m4a]/b" \
+  --merge-output-format mp4 -o "/Users/lx/Downloads/hwhap_ep1_2speaker_clip.mp4" \
+  "https://www.youtube.com/watch?v=eG3mQzYbwIY"
+```
+
+备选双人素材（同系列，全是公有领域，时长 43–63 分钟，需自行截段）：
+`8A-6NoJbsFg` / `ZC4hpgNoumQ` / `mQbpPyV_kFw` / `QgLPHkebWU8`
 
 **下一条命令**：
 
 ```bash
 BC=/Applications/BaoCut.app/Contents/MacOS/baocut-cli
-# M3 第一步：验证 translate payload 的行 id 与 subtitle list 的 group id 是否对得上
-$BC --json subtitle list p1 --lang zh --limit 500 > /tmp/p1_zh.json
-head -c 2000 "/Users/lx/Library/Application Support/BaoCut/projects/p1/agent/t-msac81kt/payloads/c0003.txt"
+$BC --json auto /Users/lx/Downloads/hwhap_ep1_2speaker_clip.mp4 --lang zh --source-lang en --speakers 2
+# 立即返回 {taskId, projectId}；然后用 task status 轮询（绝不要用 task wait，会阻塞超时）
 ```
 
 ## 节点表
 
 | 节点 | 目标 | 状态 | 证据 |
 |---|---|---|---|
-| **M0** 环境与契约摸底 | 确认 baocut-cli 可用、模型就位、命令契约抄录 | ✅ 完成 | `docs/BAOCUT_NOTES.md` M0 |
-| **M1** 短视频跑通 BaoCut | 一条 3.5 分钟公开视频走完 `auto` + task 循环到 done | ✅ 完成 | `BAOCUT_NOTES.md` M1（9 次 submit 全过） |
-| **M2** 结构化数据映射 | 拿到 `subtitle list --json` 真实结构，定死 `groups.json` 字段来源 | ✅ 完成 | `BAOCUT_NOTES.md` M2 |
-| **M3** 配音字数约束 | 验证 id 映射；注入配音 prompt；超界比例 < 10% | ⬜ 下一个 | 对照表 + 前后统计 |
-| **M4** TTS + 时长适配 | `audio/zh_dub.wav` 与原视频等长，漂移 < 0.5s | ⬜ 未开始 | 漂移值 + 变速直方图 |
-| **M5** 封装 + QC + 样片 | `output/dubbed.mp4` 双音轨双字幕 + 3 段人耳样片 | ⬜ 未开始 | `ffprobe` + `qc_report.json` |
-| **M6** 端到端长播客 | 20 分钟以上真实播客一条命令跑通并人耳合格 | ⬜ 未开始 | 耗时表 + 样片 |
+| **M0** 环境与契约摸底 | baocut-cli 可用、模型就位、命令契约抄录 | ✅ 完成 | `BAOCUT_NOTES.md` M0 |
+| **M1** 单人视频跑通 BaoCut | 3.5 分钟视频走完 `auto` + task 循环到 done | ✅ 完成 | `BAOCUT_NOTES.md` M1（9 次 submit 全过） |
+| **M2** 结构化数据映射 | `subtitle list --json` 真实结构，定死 `groups.json` 字段 | ✅ 完成 | `BAOCUT_NOTES.md` M2 |
+| **M3** ★**说话人识别验证** | 双人素材上，说话人归属准确率过门；否则整个产品不成立 | ⬜ **下一个** | 见下方"M3 怎么做" |
+| **M4** 批量 TTS + 切割 | 整批合成再切开，音色不漂；切割精度实测 | ⬜ 未开始 | 词边界精度、音色一致性抽听 |
+| **M5** 时长适配 | `audio/zh_dub.wav` 与原视频等长，漂移 < 0.5s | ⬜ 未开始 | 漂移值 + 变速直方图 |
+| **M6** 封装 + QC + 样片 | `output/dubbed.mp4` 双音轨双字幕 + 3 段人耳样片 | ⬜ 未开始 | `ffprobe` + `qc_report.json` |
+| **M7** 端到端长播客 | 20 分钟以上真实播客跑通并人耳合格 | ⬜ 未开始 | 耗时表 + 样片 |
 
-节点与 PLAN.md 的 Brief 对应：M0+M1+M2 = Brief 0，M3 = Brief 2，M4 = Brief 3，M5 = Brief 4，M6 = Brief 5。
-（Brief 1 骨架代码在 M2 定死字段后再写，避免返工。）
+> 节点顺序在 2026-08-01 用户 review 后**重排过**：原来的"配音字数约束"降级为 M5 的一部分，
+> **说话人识别提到最前面**。理由：用户既有工作流里"张冠李戴"反复发生，
+> 这一关过不了，工具就没有做的意义。功能做得再全也白搭。
+
+## M3 怎么做（说话人识别验证）
+
+**目标不是"跑出说话人"，是"知道哪些地方它可能错了"。**
+
+1. 跑 `auto ... --speakers 2` 得到基线
+2. `$BC speakers show <pid> --cues` 看逐句归属和文本证据
+3. `$BC speakers reidentify <pid> --count 2,3 --review` —— 一次识别出多个提案，返回 proposalId
+4. `$BC speakers proposals <pid> <a> <b>` —— 逐 cue 对比两个提案的**分歧**
+5. `$BC speakers view <pid> --rerun -o /tmp/spk.png` —— 波形 + 双说话人条带 + **分歧/模糊标记 PNG**，用 Read 工具看图
+6. 对每个分歧点：`$BC frames <pid> --at <秒>` 抓画面帧，**视觉确认谁在说**（视频播客能直接看出来）
+7. `$BC speakers assign <pid> --speaker <sid> --cue <cueId>` 定点改正；确认无误的用 `--protect` 锁住
+8. `$BC speakers propose-names <pid>` 从自我介绍推断人名（**不会自动应用，要人工核对**）
+
+**过门标准（写进证据）**：
+
+- 统计：总 cue 数 / 两提案分歧 cue 数 / 分歧占比
+- **分歧占比 ≤ 5% 且全部逐一确认过 → 允许多音色**
+- **> 5% 或未逐一确认 → 整片回落单一音色**，并在 QC 报告写明原因
+- 宁可少用音色，不可张冠李戴
+
+**证据要求**：分歧统计表、`view --rerun` 的 PNG、至少 3 个分歧点的 `frames` 视觉确认记录、
+最终判定（多音色 or 降级）及理由。写进 `docs/BAOCUT_NOTES.md` 的 `## M3` 小节。
 
 ## 已验证事实（可直接依赖，不必复查）
 

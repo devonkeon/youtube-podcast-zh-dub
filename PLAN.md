@@ -1,6 +1,11 @@
 # 执行计划（PDCA）与 Agent 任务书
 
-> 交接给 kimi / grok / hermes。**一次只做一个 Brief，做完写 EVIDENCE 并 commit，再做下一个。**
+> ⚠️ **2026-08-01 起，节点顺序以 `STATE.md` 的节点表为准**（用户 review 后重排：
+> 说话人识别提到最前，字数约束降级并入时长适配）。本文件的 Brief 保留作为
+> **每个节点的执行模板**（Goal / Scope / Forbidden / Done / Evidence 的写法），
+> 但**编号与顺序已不作数**。冲突时听 `STATE.md` 的。
+>
+> 交接给 kimi / grok / hermes。**一次只做一个节点，做完写证据并 commit，再做下一个。**
 
 ## 交接现状
 
